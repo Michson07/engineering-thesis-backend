@@ -2,6 +2,6 @@
 {
     public class QueryResult<TResult> where TResult : new()
     {
-        public TResult Body { get; set; }
+        public TResult? Body { get; set; }
     }
 }

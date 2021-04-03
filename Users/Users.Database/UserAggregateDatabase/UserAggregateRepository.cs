@@ -26,5 +26,10 @@ namespace Users.Database.UserAggregateDatabase
         {
             dbContext.Update(user);
         }
+
+        public void SaveChanges()
+        {
+            dbContext.SaveChanges();
+        }
     }
 }

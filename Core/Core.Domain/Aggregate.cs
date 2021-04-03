@@ -8,7 +8,7 @@ namespace Core.Domain
 
         public Aggregate()
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
         }
     }
 }

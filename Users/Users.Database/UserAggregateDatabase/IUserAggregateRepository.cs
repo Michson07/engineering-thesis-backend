@@ -7,5 +7,6 @@ namespace Users.Database.UserAggregateDatabase
         public UserAggregate? Get(string email);
         public void Add(UserAggregate user);
         public void Update(UserAggregate user);
+        public void SaveChanges();
     }
 }

@@ -10,7 +10,7 @@ using Users.Database.UserAggregateDatabase;
 namespace Users.Database.Migrations
 {
     [DbContext(typeof(UserAggregateDbContext))]
-    [Migration("20210403190757_UserAggregate")]
+    [Migration("20210403205654_UserAggregate")]
     partial class UserAggregate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,7 +48,9 @@ namespace Users.Database.Migrations
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("EmailAddress")
-                                .HasColumnType("nvarchar(max)");
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Email");
 
                             b1.HasKey("UserAggregateId");
 
@@ -65,7 +67,8 @@ namespace Users.Database.Migrations
 
                             b1.Property<byte[]>("Image")
                                 .IsRequired()
-                                .HasColumnType("varbinary(max)");
+                                .HasColumnType("varbinary(max)")
+                                .HasColumnName("Photo");
 
                             b1.HasKey("UserAggregateId");
 

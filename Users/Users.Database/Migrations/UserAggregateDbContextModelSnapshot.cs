@@ -46,7 +46,9 @@ namespace Users.Database.Migrations
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("EmailAddress")
-                                .HasColumnType("nvarchar(max)");
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Email");
 
                             b1.HasKey("UserAggregateId");
 
@@ -63,7 +65,8 @@ namespace Users.Database.Migrations
 
                             b1.Property<byte[]>("Image")
                                 .IsRequired()
-                                .HasColumnType("varbinary(max)");
+                                .HasColumnType("varbinary(max)")
+                                .HasColumnName("Photo");
 
                             b1.HasKey("UserAggregateId");
 
