@@ -1,11 +1,13 @@
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Users.Application.Queries.GetUserByPhoto;
+using Users.Database.UserAggregateDatabase;
 
 namespace Users.Api
 {
@@ -30,6 +32,10 @@ namespace Users.Api
 
             services.AddScoped<IMediator, Mediator>();
             services.AddMediatR(typeof(GetUserByPhotoHandler).Assembly);
+            services.AddDbContext<UserAggregateDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection"),
+                    x => x.MigrationsAssembly("Users.Database")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

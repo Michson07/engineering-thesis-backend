@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Core.Api;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Users.Application.Queries.GetUserByPhoto;
 
@@ -22,5 +23,13 @@ namespace Users.Api.Controllers
 
             return response.Result.Body;
         }
+
+        //[HttpPut]
+        //public ActionResult<ApiActionResult> UpdateProfile()
+        //{
+        //    var response = mediator.Send(new UpdateProfile());
+
+        //    return response.Result.Body;
+        //}
     }
 }
