@@ -19,6 +19,13 @@ namespace Users.Application.Commands
 
         public Task<CommandResult> Handle(AddUserDto request, CancellationToken cancellationToken)
         {
+            var userExists = repository.Get(request.Email);
+            //todo make better code here
+            if(userExists != null)
+            {
+                return Task.FromResult(new CommandResult());
+            }
+
             var userAggregate = UserAggregate.Create(Email.Create(request.Email), request.Name, request.LastName, null);
             repository.Add(userAggregate);
             repository.SaveChanges();
