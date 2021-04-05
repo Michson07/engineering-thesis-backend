@@ -31,6 +31,15 @@ namespace Users.Domain.Aggregates
 
             return user;
         }
+
+        public void Update(Email email, string name, string lastName, Photo? photo)
+        {
+            Email = email;
+            Name = name;
+            LastName = lastName;
+            Photo = photo;
+            new UserAggregateValidation().ValidateAndThrow(this);
+        }
     }
 
     public class UserAggregateValidation : AbstractValidator<UserAggregate>

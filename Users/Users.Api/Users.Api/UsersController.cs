@@ -33,12 +33,12 @@ namespace Users.Api
             return response.Result.Body;
         }
 
-        //[HttpPut]
-        //public ActionResult<ApiActionResult> UpdateProfile()
-        //{
-        //    var response = mediator.Send(new UpdateProfile());
+        [HttpPut]
+        public ActionResult<ApiActionResult> UpdateProfile(UpdateUserDto user)
+        {
+            var response = mediator.Send(user);
 
-        //    return response.Result.Body;
-        //}
+            return response.Result.Body;
+        }
     }
 }

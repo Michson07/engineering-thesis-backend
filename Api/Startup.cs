@@ -31,8 +31,8 @@ namespace Api
             {
             options.AddPolicy("CorsPolicy",
                 builder => builder.AllowAnyOrigin()
-                .AllowAnyHeader());
-                    //.AllowCredentials());
+                .AllowAnyHeader()
+                .AllowAnyMethod());
             });
 
             //Users

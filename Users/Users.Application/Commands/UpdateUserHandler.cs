@@ -1,0 +1,46 @@
+﻿using Core.Application;
+using Core.Domain.ValueObjects;
+using MediatR;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Users.Database.UserAggregateDatabase;
+using Users.Domain.Aggregates;
+using Users.Domain.ValueObjects;
+
+namespace Users.Application.Commands
+{
+    public class UpdateUserHandler : IRequestHandler<UpdateUserDto, CommandResult>
+    {
+        private readonly IUserAggregateRepository repository;
+        private readonly IMediator mediator;
+
+        public UpdateUserHandler(IUserAggregateRepository repository, IMediator mediator)
+        {
+            this.repository = repository;
+            this.mediator = mediator;
+        }
+
+        public Task<CommandResult> Handle(UpdateUserDto request, CancellationToken cancellationToken)
+        {
+            var user = repository.Get(request.Email);
+            if (user == null)
+            {
+                return mediator.Send(new AddUserDto
+                {
+                    Email = request.Email,
+                    Name = request.Name,
+                    LastName = request.LastName
+                }, cancellationToken);
+            }
+
+            var photo = request.Photo != null ? new Photo(Convert.FromBase64String(request.Photo)) : null;
+
+            user.Update(Email.Create(request.Email), request.Name, request.LastName, photo);
+            repository.Update(user);
+            repository.SaveChanges();
+
+            return Task.FromResult(new CommandResult());
+        }
+    }
+}
