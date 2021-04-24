@@ -1,4 +1,5 @@
-﻿using Core.Application;
+﻿using Core.Api;
+using Core.Application;
 using Core.Domain.ValueObjects;
 using MediatR;
 using System.Threading;
@@ -20,13 +21,12 @@ namespace Users.Application.Commands
         public Task<CommandResult> Handle(AddUserDto request, CancellationToken cancellationToken)
         {
             var userExists = repository.Get(request.Email);
-            //todo make better code here
             if(userExists != null)
             {
-                return Task.FromResult(new CommandResult());
+                return Task.FromResult(new CommandResult { Body = new ConflictResult<string>(request.Email) });
             }
 
-            var userAggregate = UserAggregate.Create(Email.Create(request.Email), request.Name, request.LastName, null);
+            var userAggregate = UserAggregate.Create(new Email(request.Email), request.Name, request.LastName, null);
             repository.Add(userAggregate);
             repository.SaveChanges();
 

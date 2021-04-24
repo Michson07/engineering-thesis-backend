@@ -1,7 +1,6 @@
-﻿using Core.Domain.ValueObjects;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Users.Domain.ValueObjects
+namespace Core.Domain.ValueObjects
 {
     public class Photo : ValueObject
     {

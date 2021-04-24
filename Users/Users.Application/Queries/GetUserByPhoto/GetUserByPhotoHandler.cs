@@ -15,7 +15,6 @@ namespace Users.Application.Queries.GetUserByPhoto
             this.repository = repository;
         }
 
-        //todo change to proper logic
         public Task<QueryResult<GetUserByPhotoView>> Handle(GetUserByPhotoDto request, CancellationToken cancellationToken)
         {
             var user = repository.Get(request.Email);
@@ -29,9 +28,6 @@ namespace Users.Application.Queries.GetUserByPhoto
             {
                 response.Body = new GetUserByPhotoView
                 {
-                    Email = user.Email.EmailAddress,
-                    Name = user.Name,
-                    LastName = user.LastName,
                     Photo = user.Photo?.Image
                 };
             }

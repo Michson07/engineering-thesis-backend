@@ -19,7 +19,7 @@ namespace Users.Database.UserAggregateDatabase
 
         public UserAggregate? Get(string email)
         {
-            return dbContext.UserAggregate.FirstOrDefault(u => u.Email.EmailAddress == email);
+            return dbContext.UserAggregate.FirstOrDefault(u => u.Email == email);
         }
 
         public void Update(UserAggregate user)

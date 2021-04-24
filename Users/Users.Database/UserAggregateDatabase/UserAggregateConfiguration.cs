@@ -9,7 +9,7 @@ namespace Users.Database.UserAggregateDatabase
         public void Configure(EntityTypeBuilder<UserAggregate> builder)
         {
             builder.HasKey(o => o.Id);
-            builder.OwnsOne(o => o.Email).Property(email => email.EmailAddress).HasColumnName("Email").IsRequired();
+            builder.OwnsOne(o => o.Email).Property(email => email).HasColumnName("Email").IsRequired();
             builder.OwnsOne(o => o.Photo).Property(photo => photo.Image).HasColumnName("Photo");
         }
     }

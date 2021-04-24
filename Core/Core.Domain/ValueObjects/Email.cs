@@ -1,42 +1,25 @@
 ﻿using FluentValidation;
-using FluentValidation.Validators;
-using System.Collections.Generic;
 
 namespace Core.Domain.ValueObjects
 {
-    public class Email : ValueObject
+    public class Email : ValueObject<string>
     {
-        public string EmailAddress { get; init; }
-
         private Email()
         {
 
         }
 
-        private Email(string emailAddress)
+        public Email(string value) : base(value)
         {
-            EmailAddress = emailAddress;
-        }
-
-        public static Email Create(string emailAddress)
-        {
-            var email = new Email(emailAddress);
-            new EmailValidation().ValidateAndThrow(email);
-
-            return email;
-        }
-
-        protected override IEnumerable<object> GetEqualityComponents()
-        {
-            yield return EmailAddress;
+            new EmailValidation().ValidateAndThrow(value);
         }
     }
 
-    public class EmailValidation : AbstractValidator<Email>
+    public class EmailValidation : AbstractValidator<string>
     {
         public EmailValidation()
         {
-            RuleFor(x => x.EmailAddress).EmailAddress();
+            RuleFor(x => x).EmailAddress();
         }
     }
 }

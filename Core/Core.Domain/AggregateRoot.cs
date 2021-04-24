@@ -2,11 +2,11 @@
 
 namespace Core.Domain
 {
-    public abstract class Aggregate
+    public abstract class AggregateRoot
     {
         public Guid Id { get; init; }
 
-        public Aggregate()
+        public AggregateRoot()
         {
             Id = Guid.NewGuid();
         }

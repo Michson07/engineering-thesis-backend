@@ -5,8 +5,6 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Users.Database.UserAggregateDatabase;
-using Users.Domain.Aggregates;
-using Users.Domain.ValueObjects;
 
 namespace Users.Application.Commands
 {
@@ -36,7 +34,7 @@ namespace Users.Application.Commands
 
             var photo = request.Photo != null ? new Photo(Convert.FromBase64String(request.Photo)) : null;
 
-            user.Update(Email.Create(request.Email), request.Name, request.LastName, photo);
+            user.Update(new Email(request.Email), request.Name, request.LastName, photo);
             repository.Update(user);
             repository.SaveChanges();
 

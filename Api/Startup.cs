@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Users.Api;
+using Groups.Api;
 
 namespace Api
 {
@@ -37,6 +38,9 @@ namespace Api
 
             //Users
             services.AddUsersApi(Configuration);
+
+            //Groups
+            services.AddGroupsApi(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

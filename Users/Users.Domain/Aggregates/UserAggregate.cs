@@ -1,11 +1,10 @@
 ﻿using Core.Domain;
 using Core.Domain.ValueObjects;
 using FluentValidation;
-using Users.Domain.ValueObjects;
 
 namespace Users.Domain.Aggregates
 {
-    public class UserAggregate : Aggregate
+    public class UserAggregate : AggregateRoot
     {
         public Email Email { get; private set; } = null!;
         public string Name { get; private set; } = string.Empty;
