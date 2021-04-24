@@ -1,9 +1,8 @@
 ﻿using Groups.Domain.Aggregates;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
-namespace Groups.Database
+namespace Groups.Database.TestAggregateDatabase
 {
     public class TestAggregateConfiguration : IEntityTypeConfiguration<TestAggregate>
     {

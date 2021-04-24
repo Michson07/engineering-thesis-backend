@@ -1,15 +1,13 @@
-﻿using System.Linq;
+﻿using Core.Database;
+using System.Linq;
 using Users.Domain.Aggregates;
 
 namespace Users.Database.UserAggregateDatabase
 {
-    public class UserAggregateRepository : IUserAggregateRepository
+    public class UserAggregateRepository : AggregateRepository<UserAggregateDbContext>, IUserAggregateRepository
     {
-        private readonly UserAggregateDbContext dbContext;
-
-        public UserAggregateRepository(UserAggregateDbContext dbContext)
+        public UserAggregateRepository(UserAggregateDbContext dbContext) : base(dbContext)
         {
-            this.dbContext = dbContext;
         }
 
         public void Add(UserAggregate user)
@@ -25,11 +23,6 @@ namespace Users.Database.UserAggregateDatabase
         public void Update(UserAggregate user)
         {
             dbContext.Update(user);
-        }
-
-        public void SaveChanges()
-        {
-            dbContext.SaveChanges();
         }
     }
 }

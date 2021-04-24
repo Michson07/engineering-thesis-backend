@@ -1,9 +1,14 @@
-﻿using Groups.Domain.Aggregates;
+﻿using Core.Database;
+using Groups.Database.GroupAggregateDatabase;
+using Groups.Database.QuestionAggregateDatabase;
+using Groups.Database.TestAggregateDatabase;
+using Groups.Database.TestResultAggregateDatabase;
+using Groups.Domain.Aggregates;
 using Microsoft.EntityFrameworkCore;
 
 namespace Groups.Database
 {
-    public class GroupsDbContext : DbContext
+    public class GroupsDbContext : AggregateDbContext
     {
         public GroupsDbContext(DbContextOptions<GroupsDbContext> options)
             : base(options)

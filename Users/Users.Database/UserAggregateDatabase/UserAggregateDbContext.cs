@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Core.Database;
+using Microsoft.EntityFrameworkCore;
 using Users.Domain.Aggregates;
 
 namespace Users.Database.UserAggregateDatabase
 {
-    public class UserAggregateDbContext : DbContext
+    public class UserAggregateDbContext : AggregateDbContext
     {
         public UserAggregateDbContext(DbContextOptions<UserAggregateDbContext> options)
             : base(options)

@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 
-namespace Groups.Database
+namespace Groups.Database.GroupAggregateDatabase
 {
     public class GroupAggregateConfiguration : IEntityTypeConfiguration<GroupAggregate>
     {
         public void Configure(EntityTypeBuilder<GroupAggregate> builder)
         {
             builder.HasKey(o => o.Id);
-            builder.OwnsOne(o => o.GroupName).Property(name => name.Name).HasColumnName("GroupName").IsRequired();
+            builder.OwnsOne(o => o.GroupName).Property(name => name).HasColumnName("GroupName").IsRequired();
             builder.OwnsMany(o => o.Participients, participients =>
             {
                 participients.ToTable("Participient");

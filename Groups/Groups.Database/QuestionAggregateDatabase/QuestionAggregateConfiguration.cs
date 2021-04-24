@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Groups.Database
+namespace Groups.Database.QuestionAggregateDatabase
 {
     public class QuestionAggregateConfiguration : IEntityTypeConfiguration<QuestionAggregate>
     {
