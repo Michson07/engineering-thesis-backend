@@ -13,18 +13,11 @@ namespace Groups.Domain.ValueObjects
         {
         }
 
-        private Participient(Email email, string role)
+        public Participient(Email email, string role)
         {
             Email = email;
             Role = role;
-        }
-
-        public static Participient Create(Email email, string role) //todo check if I should do this with Create or constructor
-        {
-            var participient = new Participient(email, role);
-            new ParticipientValidation().ValidateAndThrow(participient);
-
-            return participient;
+            new ParticipientValidation().ValidateAndThrow(this);
         }
 
         protected override IEnumerable<object> GetEqualityComponents()
@@ -38,7 +31,7 @@ namespace Groups.Domain.ValueObjects
     {
         public ParticipientValidation()
         {
-            RuleFor(participient => participient.Role).Must(p => p == "Owner" || p == "Student");
+            RuleFor(participient => participient.Role).Must(p => p == GroupRoles.Owner || p == GroupRoles.Student);
         }
     }
 }

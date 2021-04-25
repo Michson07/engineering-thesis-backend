@@ -36,7 +36,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Info", "Info", "{D3DE74C2-D
 		README.txt = README.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Database", "Core\Core.Database\Core.Database.csproj", "{40596C7B-7A56-4006-B86E-E8EA2092FB25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Database", "Core\Core.Database\Core.Database.csproj", "{40596C7B-7A56-4006-B86E-E8EA2092FB25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Groups.Application", "Groups\Groups.Application\Groups.Application.csproj", "{2AB7650C-08FF-49D5-BC7B-0B37CADAF6C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -92,6 +94,10 @@ Global
 		{40596C7B-7A56-4006-B86E-E8EA2092FB25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40596C7B-7A56-4006-B86E-E8EA2092FB25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40596C7B-7A56-4006-B86E-E8EA2092FB25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AB7650C-08FF-49D5-BC7B-0B37CADAF6C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AB7650C-08FF-49D5-BC7B-0B37CADAF6C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AB7650C-08FF-49D5-BC7B-0B37CADAF6C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AB7650C-08FF-49D5-BC7B-0B37CADAF6C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,6 +114,7 @@ Global
 		{1A3BD494-B19E-4BAE-B4CD-255EC436FE45} = {4CECBF14-5E13-47E0-BEB7-0BAB27A32A45}
 		{10C6900D-6291-45EE-B4F4-FE75F3393B60} = {4CECBF14-5E13-47E0-BEB7-0BAB27A32A45}
 		{40596C7B-7A56-4006-B86E-E8EA2092FB25} = {5D2F94BB-A66B-4F51-99C7-E3C15032EE4D}
+		{2AB7650C-08FF-49D5-BC7B-0B37CADAF6C7} = {4CECBF14-5E13-47E0-BEB7-0BAB27A32A45}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D062C745-11A0-4261-B0B3-11E49DAEAACF}

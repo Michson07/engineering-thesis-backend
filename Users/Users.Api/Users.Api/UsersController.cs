@@ -1,5 +1,4 @@
 ﻿using Core.Api;
-using Core.Application;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Users.Application.Commands;
@@ -30,7 +29,7 @@ namespace Users.Api
         {
             var response = mediator.Send(user);
 
-            return response.Result.Body;
+            return response.Result.Result;
         }
 
         [HttpPut]
@@ -38,7 +37,7 @@ namespace Users.Api
         {
             var response = mediator.Send(user);
 
-            return response.Result.Body;
+            return response.Result.Result;
         }
     }
 }

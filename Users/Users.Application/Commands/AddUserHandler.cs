@@ -23,7 +23,7 @@ namespace Users.Application.Commands
             var userExists = repository.Get(request.Email);
             if(userExists != null)
             {
-                return Task.FromResult(new CommandResult { Body = new ConflictResult<string>(request.Email) });
+                return Task.FromResult(new CommandResult { Result = new ConflictResult<string>(request.Email) });
             }
 
             var userAggregate = UserAggregate.Create(new Email(request.Email), request.Name, request.LastName, null);
