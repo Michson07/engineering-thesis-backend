@@ -1,3 +1,8 @@
 Migration: 
 1. Select Default Project ({module}.Database)
-2. Add-Migration {name} or Add-Migration {name} -Context {contextName}
+2. Add-Migration {migrationName} or Add-Migration {migrationName} -Context {contextName}
+
+Update db:
+1. Select Default Project ({module}.Database)
+2. Update-Database -Context {contextName}
+
