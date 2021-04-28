@@ -22,11 +22,11 @@ namespace Users.Application.Queries.GetUserByPhoto
             var response = new QueryResult<GetUserByPhotoView>();
             if(user == null)
             {
-                response.Body = null;
+                response.BodyResponse = null;
             }
             else
             {
-                response.Body = new GetUserByPhotoView
+                response.BodyResponse = new GetUserByPhotoView
                 {
                     Photo = user.Photo?.Image
                 };

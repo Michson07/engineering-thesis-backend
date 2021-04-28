@@ -1,4 +1,5 @@
-﻿using Core.Application;
+﻿using Core.Api;
+using Core.Application;
 using Core.Domain.ValueObjects;
 using MediatR;
 using System;
@@ -38,7 +39,7 @@ namespace Users.Application.Commands
             repository.Update(user);
             repository.SaveChanges();
 
-            return Task.FromResult(new CommandResult());
+            return Task.FromResult(new CommandResult { Result = new OkResult() });
         }
     }
 }

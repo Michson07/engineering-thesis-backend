@@ -8,6 +8,8 @@
             this.value = value;
         }
 
-        public override string Result => $"{value} already exists.";
+        public override string Body => $"{value} already exists.";
+
+        public override int Code => 409;
     }
 }

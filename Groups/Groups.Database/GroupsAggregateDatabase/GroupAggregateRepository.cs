@@ -1,5 +1,6 @@
 ﻿using Core.Database;
 using Groups.Domain.Aggregates;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Groups.Database.GroupsAggregateDatabase
@@ -18,6 +19,13 @@ namespace Groups.Database.GroupsAggregateDatabase
         public GroupAggregate? Get(string name)
         {
             return dbContext.GroupAggregate.FirstOrDefault(group => group.GroupName == name);
+        }
+
+        public IEnumerable<GroupAggregate> GetUserGroups(string email)
+        {
+            return dbContext
+                .GroupAggregate
+                .Where(group => group.Participients.Any(p => p.Email == email));
         }
 
         public void Update(GroupAggregate group)

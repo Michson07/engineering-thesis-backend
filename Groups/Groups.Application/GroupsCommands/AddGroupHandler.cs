@@ -6,7 +6,6 @@ using Groups.Domain;
 using Groups.Domain.Aggregates;
 using Groups.Domain.ValueObjects;
 using MediatR;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,18 +25,20 @@ namespace Groups.Application.GroupsCommands
         {
             var groupExists = repository.Get(request.Name);
 
-            if(groupExists != null)
+            if (groupExists != null)
             {
                 return Task.FromResult(new CommandResult { Result = new ConflictResult<string>(request.Name) });
             }
 
             var owner = new Participient(new Email(request.OwnerEmail), GroupRoles.Owner);
             var group = (GroupAggregate.Create(new List<Participient>() { owner },
-                new GroupName(request.Name)));
+                new GroupName(request.Name),
+                request.Description));
+
             repository.Add(group);
             repository.SaveChanges();
 
-            return Task.FromResult(new CommandResult());
+            return Task.FromResult(new CommandResult { Result = new OkResult() });
         }
     }
 }

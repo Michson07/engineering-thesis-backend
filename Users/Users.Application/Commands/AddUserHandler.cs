@@ -30,7 +30,7 @@ namespace Users.Application.Commands
             repository.Add(userAggregate);
             repository.SaveChanges();
 
-            return Task.FromResult(new CommandResult());
+            return Task.FromResult(new CommandResult { Result = new OkResult() });
         }
     }
 }

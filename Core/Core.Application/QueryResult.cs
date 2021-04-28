@@ -1,7 +1,14 @@
-﻿namespace Core.Application
+﻿using Core.Api;
+using Newtonsoft.Json;
+
+namespace Core.Application
 {
-    public class QueryResult<TResult> where TResult : new()
+    public class QueryResult<TResult> : ApiActionResult where TResult : new()
     {
-        public TResult? Body { get; set; }
+        public TResult? BodyResponse { get; set; } = default!;
+
+        public override string Body => JsonConvert.SerializeObject(BodyResponse);
+
+        public override int Code => BodyResponse != null ? 200 : 404;
     }
 }

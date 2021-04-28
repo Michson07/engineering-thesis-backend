@@ -2,6 +2,8 @@
 {
     public class OkResult : ApiActionResult
     {
-        public override string Result => "Ok";
+        public override string Body => "Ok";
+
+        public override int Code => 200;
     }
 }

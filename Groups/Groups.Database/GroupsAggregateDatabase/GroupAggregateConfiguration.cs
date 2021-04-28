@@ -1,4 +1,5 @@
 ﻿using Core.Database.ValueObjects;
+using Groups.Database.ValueObjects;
 using Groups.Domain.Aggregates;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -11,7 +12,7 @@ namespace Groups.Database.GroupAggregateDatabase
         public void Configure(EntityTypeBuilder<GroupAggregate> builder)
         {
             builder.HasKey(o => o.Id);
-            builder.OwnsOne(o => o.GroupName).Property(name => name).HasColumnName("GroupName").IsRequired();
+            builder.Property(o => o.GroupName).IsGroupName().IsRequired();
             builder.OwnsMany(o => o.Participients, participients =>
             {
                 participients.ToTable("Participient");

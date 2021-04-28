@@ -21,11 +21,11 @@ namespace Users.Api
         {
             var response = mediator.Send(new GetUserByPhotoDto { Email = email });
 
-            return response.Result.Body;
+            return response.Result.BodyResponse;
         }
 
         [HttpPost]
-        public ActionResult<ApiActionResult> AddUser(AddUserDto user)
+        public ApiActionResult AddUser(AddUserDto user)
         {
             var response = mediator.Send(user);
 
@@ -33,7 +33,7 @@ namespace Users.Api
         }
 
         [HttpPut]
-        public ActionResult<ApiActionResult> UpdateProfile(UpdateUserDto user)
+        public ApiActionResult UpdateProfile(UpdateUserDto user)
         {
             var response = mediator.Send(user);
 
