@@ -1,6 +1,9 @@
 ﻿using Core.Database;
 using Groups.Domain.Aggregates;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Groups.Database.TestAggregateDatabase
 {
@@ -10,9 +13,14 @@ namespace Groups.Database.TestAggregateDatabase
         {
         }
 
-        public void Add(TestAggregate test)
+        public async Task Add(TestAggregate test)
         {
-            dbContext.Add(test);
+            await dbContext.AddAsync(test);
+        }
+
+        public IEnumerable<TestAggregate>? GetGroupTests(string name)
+        {
+            return dbContext.TestAggregate.Where(test => test.Group.GroupName == name);
         }
 
         public void Update(TestAggregate test)

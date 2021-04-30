@@ -1,5 +1,7 @@
 ﻿using Core.Database;
 using Groups.Domain.Aggregates;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Groups.Database.QuestionAggregateDatabase
 {
@@ -9,9 +11,17 @@ namespace Groups.Database.QuestionAggregateDatabase
         {
         }
 
-        public void Add(QuestionAggregate question)
+        public async Task Add(QuestionAggregate question)
         {
-            dbContext.Add(question);
+            await dbContext.AddAsync(question);
+        }
+
+        public async Task Add(IEnumerable<QuestionAggregate> questions)
+        {
+            foreach(var question in questions)
+            {
+                await dbContext.AddAsync(question);
+            }
         }
 
         public void Update(QuestionAggregate question)
