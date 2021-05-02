@@ -21,6 +21,11 @@ namespace Groups.Database.GroupsAggregateDatabase
             return dbContext.GroupAggregate.FirstOrDefault(group => group.GroupName == name);
         }
 
+        public GroupAggregate? GetById(string id)
+        {
+            return dbContext.GroupAggregate.FirstOrDefault(group => group.Id.ToString() == id);
+        }
+
         public IEnumerable<GroupAggregate> GetUserGroups(string email)
         {
             return dbContext

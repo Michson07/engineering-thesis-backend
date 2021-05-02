@@ -7,6 +7,7 @@ namespace Groups.Database.GroupsAggregateDatabase
     public interface IGroupAggregateRepository : IAggregateRepository
     {
         public GroupAggregate? Get(string name);
+        public GroupAggregate? GetById(string id);
         public IEnumerable<GroupAggregate> GetUserGroups(string email);
         public void Add(GroupAggregate group);
         public void Update(GroupAggregate group);

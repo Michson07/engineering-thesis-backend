@@ -29,7 +29,7 @@ namespace Groups.Application.TestCommands
 
         public async Task<CommandResult> Handle(AddTestDto request, CancellationToken cancellationToken)
         {
-            var group = groupRepository.Get(request.Group);
+            var group = groupRepository.GetById(request.Group);
             if (group == null)
             {
                 return new CommandResult { Result = new NotFoundResult<string>(request.Group) };
