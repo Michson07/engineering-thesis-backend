@@ -3,6 +3,7 @@ using Groups.Application.GroupsCommands;
 using Groups.Application.GroupsQueries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Groups.Api
 {
@@ -17,11 +18,11 @@ namespace Groups.Api
         }
 
         [HttpPost]
-        public ApiActionResult AddGroup(AddGroupDto group)
+        public async Task<ApiActionResult> AddGroupAsync(AddGroupDto group)
         {
-            var response = mediator.Send(group);
+            var response = await mediator.Send(group);
 
-            return response.Result.Result;
+            return response.Result;
         }
 
         [HttpGet]

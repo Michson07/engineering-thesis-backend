@@ -18,19 +18,19 @@ namespace Users.Application.Commands
             this.repository = repository;
         }
 
-        public Task<CommandResult> Handle(AddUserDto request, CancellationToken cancellationToken)
+        public async Task<CommandResult> Handle(AddUserDto request, CancellationToken cancellationToken)
         {
             var userExists = repository.Get(request.Email);
             if(userExists != null)
             {
-                return Task.FromResult(new CommandResult { Result = new ConflictResult<string>(request.Email) });
+                return new CommandResult { Result = new ConflictResult<string>(request.Email) };
             }
 
             var userAggregate = UserAggregate.Create(new Email(request.Email), request.Name, request.LastName, null);
             repository.Add(userAggregate);
-            repository.SaveChanges();
+            await repository.SaveChanges();
 
-            return Task.FromResult(new CommandResult { Result = new OkResult() });
+            return new CommandResult { Result = new OkResult() };
         }
     }
 }

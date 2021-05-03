@@ -20,12 +20,12 @@ namespace Users.Application.Commands
             this.mediator = mediator;
         }
 
-        public Task<CommandResult> Handle(UpdateUserDto request, CancellationToken cancellationToken)
+        public async Task<CommandResult> Handle(UpdateUserDto request, CancellationToken cancellationToken)
         {
             var user = repository.Get(request.Email);
             if (user == null)
             {
-                return mediator.Send(new AddUserDto
+                return await mediator.Send(new AddUserDto
                 {
                     Email = request.Email,
                     Name = request.Name,
@@ -37,9 +37,9 @@ namespace Users.Application.Commands
 
             user.Update(new Email(request.Email), request.Name, request.LastName, photo);
             repository.Update(user);
-            repository.SaveChanges();
+            await repository.SaveChanges();
 
-            return Task.FromResult(new CommandResult { Result = new OkResult() });
+            return new CommandResult { Result = new OkResult() };
         }
     }
 }

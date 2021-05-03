@@ -1,6 +1,7 @@
 ﻿using Core.Api;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using Users.Application.Commands;
 using Users.Application.Queries.GetUserByPhoto;
 
@@ -25,19 +26,19 @@ namespace Users.Api
         }
 
         [HttpPost]
-        public ApiActionResult AddUser(AddUserDto user)
+        public async Task<ApiActionResult> AddUserAsync(AddUserDto user)
         {
-            var response = mediator.Send(user);
+            var response = await mediator.Send(user);
 
-            return response.Result.Result;
+            return response.Result;
         }
 
         [HttpPut]
-        public ApiActionResult UpdateProfile(UpdateUserDto user)
+        public async Task<ApiActionResult> UpdateProfileAsync(UpdateUserDto user)
         {
-            var response = mediator.Send(user);
+            var response = await mediator.Send(user);
 
-            return response.Result.Result;
+            return response.Result;
         }
     }
 }

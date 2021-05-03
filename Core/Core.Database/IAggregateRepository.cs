@@ -1,7 +1,9 @@
-﻿namespace Core.Database
+﻿using System.Threading.Tasks;
+
+namespace Core.Database
 {
     public interface IAggregateRepository
     {
-        public void SaveChanges();
+        public Task SaveChanges();
     }
 }

@@ -39,8 +39,9 @@ namespace Groups.Application.TestCommands
             var test = TestAggregate.Create(request.Name, questions, group,
                 request.Date, request.RequirePhoto, request.PassedFrom);
 
-            await testRepository.Add(test);
             await questionRepository.Add(questions);
+            await testRepository.Add(test);
+            await testRepository.SaveChanges();
 
             return new CommandResult { Result = new OkResult() };
         }
@@ -53,7 +54,7 @@ namespace Groups.Application.TestCommands
                 IEnumerable<Answer>? answers = null;
                 if (question.Answers != null)
                 {
-                    answers = question.Answers.Select(a => new Answer(a.Value, a.Correct));
+                    answers = question.Answers.Select(a => new Answer(a.Value, a.Correct)).ToList();
                 }
 
                 questionAggregates.Add(

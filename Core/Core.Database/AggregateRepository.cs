@@ -1,4 +1,6 @@
-﻿namespace Core.Database
+﻿using System.Threading.Tasks;
+
+namespace Core.Database
 {
     public abstract class AggregateRepository<T> where T : AggregateDbContext
     {
@@ -9,9 +11,9 @@
             this.dbContext = dbContext;
         }
 
-        public void SaveChanges()
+        public async Task SaveChanges()
         {
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
         }
     }
 }

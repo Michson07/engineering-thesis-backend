@@ -10,6 +10,7 @@ namespace Groups.Database.QuestionAggregateDatabase
         {
             builder.HasKey(q => q.Id);
             builder.OwnsOne(q => q.Photo).Property(photo => photo.Image).HasColumnName("Photo");
+            builder.Ignore(q => q.ManyCorrectAnswers);
             builder.OwnsMany(q => q.Answers, answers =>
             {
                 answers.ToTable("Answer");

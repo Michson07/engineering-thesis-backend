@@ -21,13 +21,13 @@ namespace Groups.Application.GroupsCommands
             this.repository = repository;
         }
 
-        public Task<CommandResult> Handle(AddGroupDto request, CancellationToken cancellationToken)
+        public async Task<CommandResult> Handle(AddGroupDto request, CancellationToken cancellationToken)
         {
             var groupExists = repository.Get(request.Name);
 
             if (groupExists != null)
             {
-                return Task.FromResult(new CommandResult { Result = new ConflictResult<string>(request.Name) });
+                return new CommandResult { Result = new ConflictResult<string>(request.Name) };
             }
 
             var owner = new Participient(new Email(request.OwnerEmail), GroupRoles.Owner);
@@ -36,9 +36,9 @@ namespace Groups.Application.GroupsCommands
                 request.Description));
 
             repository.Add(group);
-            repository.SaveChanges();
+            await repository.SaveChanges();
 
-            return Task.FromResult(new CommandResult { Result = new OkResult() });
+            return new CommandResult { Result = new OkResult() };
         }
     }
 }
