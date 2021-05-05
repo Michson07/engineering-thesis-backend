@@ -45,7 +45,7 @@ namespace Groups.Application.GroupsQueries
             {
                 foreach (var test in tests)
                 {
-                    views.Add(new TestGroupView { Name = test.Name, Date = test.Date });
+                    views.Add(new TestGroupView { Id = test.Id.ToString(), Name = test.Name, Date = test.Date });
                 }
             }
             
