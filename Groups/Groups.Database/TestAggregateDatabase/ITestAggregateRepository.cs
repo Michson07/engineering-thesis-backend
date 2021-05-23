@@ -10,6 +10,6 @@ namespace Groups.Database.TestAggregateDatabase
         public Task Add(TestAggregate test);
         public void Update(TestAggregate test);
         public IEnumerable<TestAggregate>? GetGroupTests(string name);
-        public Task<TestAggregate>? GetTestById(string id);
+        public Task<TestAggregate?> GetTestById(string id);
     }
 }

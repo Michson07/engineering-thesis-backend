@@ -37,7 +37,7 @@ namespace Groups.Application.TestCommands
 
             var questions = MapToQuestions(request.Questions);
             var test = TestAggregate.Create(request.Name, questions, group,
-                request.Date, request.RequirePhoto, request.PassedFrom);
+                request.Date, request.RequirePhoto, request.PassedFrom, request.TimeDuration);
 
             await questionRepository.Add(questions);
             await testRepository.Add(test);

@@ -9,6 +9,7 @@ namespace Groups.Application.GroupsQueries
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public IEnumerable<TestGroupView>? Tests { get; set; }
+        public bool IsOwner { get; set; } = false;
     }
 
     public class TestGroupView

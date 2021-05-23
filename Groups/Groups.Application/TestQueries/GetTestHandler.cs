@@ -1,10 +1,9 @@
-﻿using Core.Api;
-using Core.Application;
+﻿using Core.Application;
 using Groups.Database.TestAggregateDatabase;
 using Groups.Domain.Aggregates;
 using MediatR;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,7 +22,7 @@ namespace Groups.Application.TestQueries
         {
             var test = await testRepository.GetTestById(request.TestId);
 
-            if(test == null)
+            if (test == null)
             {
                 return new QueryResult<TestView> { BodyResponse = null };
             }
@@ -35,13 +34,16 @@ namespace Groups.Application.TestQueries
 
         private TestView MapToTestView(TestAggregate test)
         {
-            var testView = new TestView();
-            testView.Name = test.Name;
-            testView.RequirePhoto = test.RequirePhoto;
-            testView.PassedFrom = test.PassedFrom;
+            var testView = new TestView
+            {
+                Name = test.Name,
+                RequirePhoto = test.RequirePhoto,
+                PassedFrom = test.PassedFrom,
+                TimeDuration = test.TimeDuration
+            };
 
             var questionsView = new List<QuestionView>();
-            foreach(var question in test.Questions)
+            foreach (var question in test.Questions)
             {
                 questionsView.Add(new QuestionView
                 {
@@ -49,7 +51,8 @@ namespace Groups.Application.TestQueries
                     Photo = question.Photo?.Image,
                     ClosedQuestion = question.ClosedQuestion,
                     PointsForQuestion = question.PointsForQuestion,
-                    ManyCorrectAnswers = question.ManyCorrectAnswers
+                    ManyCorrectAnswers = question.ManyCorrectAnswers,
+                    PossibleAnswers = question.Answers?.Select(a => a.Value)
                 });
             }
 

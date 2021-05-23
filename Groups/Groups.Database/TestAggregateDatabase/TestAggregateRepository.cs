@@ -20,7 +20,10 @@ namespace Groups.Database.TestAggregateDatabase
 
         public async Task<TestAggregate>? GetTestById(string id)
         {
-            return await dbContext.TestAggregate.Include(test => test.Questions)
+            return await dbContext
+                .TestAggregate
+                .Include(test => test.Questions)
+                .Include(test => test.Group)
                 .FirstOrDefaultAsync(test => test.Id.ToString() == id);
         }
 

@@ -13,6 +13,7 @@ namespace Groups.Application.TestCommands
         public DateTime Date { get; set; } = default!;
         public bool RequirePhoto { get; set; } = false;
         public int? PassedFrom { get; set; }
+        public int TimeDuration { get; set; } = 60;
     }
 
     public class QuestionDto

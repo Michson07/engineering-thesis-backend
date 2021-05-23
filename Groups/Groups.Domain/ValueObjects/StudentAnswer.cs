@@ -30,7 +30,7 @@ namespace Groups.Domain.ValueObjects
                 var partialPoints = question.PointsForQuestion / question.Answers.Count(a => a.Correct);
                 foreach (var answer in ReceivedAnswers)
                 {
-                    if(question.Answers.Where(a => a.Correct).Select(a => a.Value).Contains(answer))
+                    if(question.Answers.Where(a => a.Correct).Select(a => a.Value.ToLower().Trim()).Contains(answer.ToLower().Trim()))
                     {
                         points += partialPoints;
                     }

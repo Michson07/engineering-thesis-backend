@@ -1,6 +1,8 @@
 ﻿using Core.Api;
+using Groups.Application;
 using Groups.Application.TestCommands;
 using Groups.Application.TestQueries;
+using Groups.Application.TestResultCommands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -29,6 +31,24 @@ namespace Groups.Api
         public async Task<ApiActionResult> GetTestAsync(string testId)
         {
             var response = await mediator.Send(new GetTestDto { TestId = testId });
+
+            return response;
+        }
+
+        [Route("solve")]
+        [HttpPost]
+        public async Task<ApiActionResult> AddTestResultAsync(AddTestResultDto testResult)
+        {
+            var response = await mediator.Send(testResult);
+
+            return response.Result;
+        }
+
+        [Route("result")]
+        [HttpGet]
+        public async Task<ApiActionResult> GetTestResult(string email, string testId)
+        {
+            var response = await mediator.Send(new GetTestResultDto { Email = email, TestId = testId });
 
             return response;
         }

@@ -1,6 +1,7 @@
 ﻿using Core.Application;
 using Groups.Database.GroupsAggregateDatabase;
 using Groups.Database.TestAggregateDatabase;
+using Groups.Domain;
 using Groups.Domain.Aggregates;
 using MediatR;
 using System.Collections.Generic;
@@ -24,8 +25,13 @@ namespace Groups.Application.GroupsQueries
         public Task<QueryResult<List<GroupView>>> Handle(GetUserGroupsDto request, CancellationToken cancellationToken)
         {
             var groups = groupRepository.GetUserGroups(request.Email);
-            var groupsView = groups.Select(g => new GroupView { 
-                Id = g.Id.ToString(), Name = g.GroupName, Description = g.Description }).ToList();
+            var groupsView = groups.Select(g => new GroupView 
+            {
+                Id = g.Id.ToString(), 
+                Name = g.GroupName, 
+                Description = g.Description,
+                IsOwner = g.Participients.First(p => p.Email == request.Email).Role == GroupRoles.Owner
+            }).ToList();
 
             foreach(var groupView in groupsView)
             {

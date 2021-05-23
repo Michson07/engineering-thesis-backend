@@ -13,30 +13,30 @@ namespace Groups.Domain.Aggregates
         public Photo? Photo { get; init; }
         public IEnumerable<Answer>? Answers { get; init; } = null!;
         public bool ClosedQuestion { get; init; } = true;
+        public int PointsForAnswer { get; init; } = 0;
 
-        public int PointsForQuestion => Answers != null ? Answers.Count(a => a.Correct) * points : points;
+        public int PointsForQuestion => Answers != null ? Answers.Count(a => a.Correct) * PointsForAnswer : PointsForAnswer;
         public bool ManyCorrectAnswers => Answers != null && Answers.Count(a => a.Correct) > 1;
 
-        private readonly int points = 0;
 
         private QuestionAggregate()
         {
         }
 
-        private QuestionAggregate(int points, string title, Photo? photo, IEnumerable<Answer>? answers,
+        private QuestionAggregate(int pointsForAnswer, string title, Photo? photo, IEnumerable<Answer>? answers,
             bool closedQuestion)
         {
-            this.points = points;
+            PointsForAnswer = pointsForAnswer;
             Title = title;
             Photo = photo;
             Answers = answers;
             ClosedQuestion = closedQuestion;
         }
 
-        public static QuestionAggregate Create(int points, string title, Photo? photo, IEnumerable<Answer>? answers,
+        public static QuestionAggregate Create(int pointsForAnswer, string title, Photo? photo, IEnumerable<Answer>? answers,
             bool closedQuestion = true)
         {
-            var question = new QuestionAggregate(points, title, photo, answers, closedQuestion);
+            var question = new QuestionAggregate(pointsForAnswer, title, photo, answers, closedQuestion);
             new QuestionValidation().ValidateAndThrow(question);
 
             return question;

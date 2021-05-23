@@ -13,6 +13,7 @@ namespace Groups.Domain.Aggregates
         public GroupAggregate Group { get; private set; } = null!;
         public DateTime Date { get; set; } = default!;
         public bool RequirePhoto { get; set; } = false;
+        public int TimeDuration { get; set; } //must be in minutes
         public int? PassedFrom { get; set; } //must be in %
 
         public int MaxPoints => Questions.Sum(q => q.PointsForQuestion);
@@ -22,7 +23,7 @@ namespace Groups.Domain.Aggregates
         }
 
         private TestAggregate(string name, IEnumerable<QuestionAggregate> questions,
-            GroupAggregate group, DateTime date, bool requirePhoto, int? passedFrom) : base()
+            GroupAggregate group, DateTime date, bool requirePhoto, int? passedFrom, int timeDuration) : base()
         {
             Name = name;
             Questions = questions;
@@ -30,24 +31,26 @@ namespace Groups.Domain.Aggregates
             Date = date;
             RequirePhoto = requirePhoto;
             PassedFrom = passedFrom;
+            TimeDuration = timeDuration;
         }
 
         public static TestAggregate Create(string name, IEnumerable<QuestionAggregate> questions,
-            GroupAggregate group, DateTime date, bool requirePhoto = false, int? passedFrom = null)
+            GroupAggregate group, DateTime date, bool requirePhoto = false, int? passedFrom = null, int timeDuration = 60)
         {
-            var test = new TestAggregate(name, questions, group, date, requirePhoto, passedFrom);
+            var test = new TestAggregate(name, questions, group, date, requirePhoto, passedFrom, timeDuration);
             new TestAggregateValidation().ValidateAndThrow(test);
 
             return test;
         }
 
-        public TestAggregate Update(string name, IEnumerable<QuestionAggregate> questions, GroupAggregate group, bool requirePhoto, int? passedFrom)
+        public TestAggregate Update(string name, IEnumerable<QuestionAggregate> questions, GroupAggregate group, bool requirePhoto, int? passedFrom, int timeDuration)
         {
             Name = name;
             Questions = questions;
             Group = group;
             RequirePhoto = requirePhoto;
             PassedFrom = passedFrom;
+            TimeDuration = timeDuration;
             new TestAggregateValidation().ValidateAndThrow(this);
 
             return this;
@@ -63,6 +66,7 @@ namespace Groups.Domain.Aggregates
             RuleFor(test => test.Questions).NotEmpty().NotNull();
             RuleFor(test => test.Group).NotNull();
             RuleFor(test => test.MaxPoints).NotEmpty().GreaterThan(0);
+            RuleFor(test => test.TimeDuration).GreaterThan(0);
             When(test => test.PassedFrom != null, () =>
             {
                 RuleFor(test => test.PassedFrom).ExclusiveBetween(0, 100);

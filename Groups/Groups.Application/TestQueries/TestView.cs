@@ -8,6 +8,7 @@ namespace Groups.Application.TestQueries
         public IEnumerable<QuestionView> Questions { get; set; } = null!;
         public bool RequirePhoto { get; set; } = false;
         public int? PassedFrom { get; set; }
+        public int TimeDuration { get; set; }
     }
 
     public class QuestionView
@@ -17,5 +18,6 @@ namespace Groups.Application.TestQueries
         public bool ClosedQuestion { get; init; } = true;
         public int PointsForQuestion { get; set; } = 0;
         public bool ManyCorrectAnswers { get; set; }
+        public IEnumerable<string>? PossibleAnswers { get; set; }
     }
 }
