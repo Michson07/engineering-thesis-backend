@@ -1,6 +1,9 @@
 ﻿using Core.Database;
+using Core.Domain.ValueObjects;
 using Groups.Domain.Aggregates;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Groups.Database.TestResultAggregateDatabase
@@ -25,6 +28,17 @@ namespace Groups.Database.TestResultAggregateDatabase
                 .Include(tr => tr.Test)
                 .Include(tr => tr.Test.Questions)
                 .FirstOrDefaultAsync(tr => tr.Student.Email == email && tr.Test.Id.ToString() == testId);
+        }
+
+        public async Task<IEnumerable<Email>> GetTestStudents(string testId)
+        {
+            return await dbContext
+                .TestResultAggregate
+                .Include(tr => tr.Student)
+                .Include(tr => tr.Test)
+                .Where(tr => tr.Test.Id.ToString() == testId)
+                .Select(tr => tr.Student.Email)
+                .ToListAsync();
         }
 
         public void Update(TestResultAggregate question)

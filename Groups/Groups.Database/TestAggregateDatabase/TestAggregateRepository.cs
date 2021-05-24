@@ -1,4 +1,5 @@
 ﻿using Core.Database;
+using Groups.Domain;
 using Groups.Domain.Aggregates;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -35,6 +36,15 @@ namespace Groups.Database.TestAggregateDatabase
         public void Update(TestAggregate test)
         {
             dbContext.Update(test);
+        }
+
+        public async Task<bool> UserIsAllowedToCheckResults(string testId, string email)
+        {
+            return await dbContext
+                .TestAggregate
+                .Include(t => t.Group)
+                .Include(t => t.Group.Participients)
+                .AnyAsync(t => t.Id.ToString() == testId && t.Group.Participients.Any(p => p.Email == email && p.Role == GroupRoles.Owner));
         }
     }
 }
