@@ -5,6 +5,7 @@ namespace Groups.Application.TestResultQueries
     public class TestResultView
     {
         public string? State { get; set; }
+        public bool Checked { get; set; }
         public int ReceivedPoints { get; set; }
         public string? InfoAboutPoints { get; set; }
         public IEnumerable<QuestionView> Questions { get; set; } = new List<QuestionView>();

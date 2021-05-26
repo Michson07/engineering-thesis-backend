@@ -22,6 +22,13 @@ namespace Groups.Domain.ValueObjects
             PointsForAnswer = CheckAnswers(question);
         }
 
+        public StudentAnswer(QuestionAggregate question, IEnumerable<string> receivedAnswers, int ReceivedPoints)
+        {
+            Question = question;
+            ReceivedAnswers = receivedAnswers;
+            PointsForAnswer = ReceivedPoints;
+        }
+
         private int CheckAnswers(QuestionAggregate question)
         {
             var points = 0;

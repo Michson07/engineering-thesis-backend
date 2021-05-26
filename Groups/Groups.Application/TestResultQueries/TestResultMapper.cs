@@ -13,6 +13,7 @@ namespace Groups.Application.TestResultQueries
             return new TestResultView
             {
                 State = userResult.State,
+                Checked = userResult.Checked == CheckedState.Checked,
                 ReceivedPoints = userResult.ReceivedPoints,
                 InfoAboutPoints = GetStatus(userResult),
                 Questions = MapToQuestionsView(userResult)

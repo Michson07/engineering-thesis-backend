@@ -54,6 +54,8 @@ namespace Groups.Application.TestResultQueries
                     {
                         Name = userView.BodyResponse.Name,
                         LastName = userView.BodyResponse.LastName,
+                        Email = email,
+                        Photo = userView.BodyResponse.Photo,
                         Result = testResultMapper.MapToTestResultView(result)
                     });
                 }

@@ -23,7 +23,8 @@ namespace Users.Application.Queries
                 {
                     Email = user.Email,
                     Name = user.Name,
-                    LastName = user.LastName
+                    LastName = user.LastName,
+                    Photo = user.Photo?.Image
                 } : null;
 
             return Task.FromResult(new QueryResult<GetUserByEmailView> { BodyResponse = userView });

@@ -62,5 +62,14 @@ namespace Groups.Api
 
             return response;
         }
+
+        [Route("update-checked-test")]
+        [HttpPut]
+        public async Task<ApiActionResult> UpdateTestResultStatus(UpdateTestResultStatusDto updateTestResultStatus)
+        {
+            var response = await mediator.Send(updateTestResultStatus);
+
+            return response.Result;
+        }
     }
 }
