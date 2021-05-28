@@ -1,4 +1,5 @@
 ﻿using Core.Database;
+using Groups.Database.AnnouncementAggregateDatabase;
 using Groups.Database.GroupAggregateDatabase;
 using Groups.Database.QuestionAggregateDatabase;
 using Groups.Database.TestAggregateDatabase;
@@ -19,6 +20,7 @@ namespace Groups.Database
         public virtual DbSet<QuestionAggregate> QuestionAggregate { get; set; }
         public virtual DbSet<TestAggregate> TestAggregate { get; set; }
         public virtual DbSet<TestResultAggregate> TestResultAggregate { get; set; }
+        public virtual DbSet<AnnouncementAggregate> AnnouncementAggregate { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,6 +28,7 @@ namespace Groups.Database
             modelBuilder.ApplyConfiguration(new QuestionAggregateConfiguration());
             modelBuilder.ApplyConfiguration(new TestAggregateConfiguration());
             modelBuilder.ApplyConfiguration(new TestResultAggregateConfiguration());
+            modelBuilder.ApplyConfiguration(new AnnouncementAggregateConfiguration());
         }
     }
 }

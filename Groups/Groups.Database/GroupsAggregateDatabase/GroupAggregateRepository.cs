@@ -1,5 +1,6 @@
 ﻿using Core.Database;
 using Groups.Domain.Aggregates;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,7 +24,10 @@ namespace Groups.Database.GroupsAggregateDatabase
 
         public GroupAggregate? GetById(string id)
         {
-            return dbContext.GroupAggregate.FirstOrDefault(group => group.Id.ToString() == id);
+            return dbContext
+                .GroupAggregate
+                .Include(group => group.Participients)
+                .FirstOrDefault(group => group.Id.ToString() == id);
         }
 
         public IEnumerable<GroupAggregate> GetUserGroups(string email)

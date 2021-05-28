@@ -1,5 +1,6 @@
 ﻿using Groups.Application.GroupsCommands;
 using Groups.Database;
+using Groups.Database.AnnouncementAggregateDatabase;
 using Groups.Database.GroupsAggregateDatabase;
 using Groups.Database.QuestionAggregateDatabase;
 using Groups.Database.TestAggregateDatabase;
@@ -27,6 +28,7 @@ namespace Groups.Api
             services.AddScoped<IQuestionAggregateRepository, QuestionAggregateRepository>();
             services.AddScoped<ITestAggregateRepository, TestAggregateRepository>();
             services.AddScoped<ITestResultAggregateRepository, TestResultAggregateRepository>();
+            services.AddScoped<IAnnouncementAggregateRepository, AnnouncementAggregateRepository>();
         }
     }
 }
