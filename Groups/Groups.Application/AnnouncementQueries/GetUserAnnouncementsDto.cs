@@ -6,6 +6,6 @@ namespace Groups.Application.AnnouncementQueries
 {
     public class GetUserAnnouncementsDto : IRequest<QueryResult<List<GetUserAnnouncementsView>>>
     {
-        public string UserId { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
     }
 }

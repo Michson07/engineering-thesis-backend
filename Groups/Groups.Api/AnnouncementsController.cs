@@ -3,10 +3,6 @@ using Groups.Application.AnnouncementCommands;
 using Groups.Application.AnnouncementQueries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Groups.Api
@@ -38,9 +34,9 @@ namespace Groups.Api
         }
 
         [HttpGet]
-        public async Task<ApiActionResult> GetAnnouncementForUserAsync(GetUserAnnouncementsDto user)
+        public async Task<ApiActionResult> GetAnnouncementForUserAsync(string email)
         {
-            var response = await mediator.Send(user);
+            var response = await mediator.Send(new GetUserAnnouncementsDto { Email = email });
 
             return response;
         }

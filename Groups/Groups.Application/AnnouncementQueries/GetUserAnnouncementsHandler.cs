@@ -21,16 +21,18 @@ namespace Groups.Application.AnnouncementQueries
 
         public async Task<QueryResult<List<GetUserAnnouncementsView>>> Handle(GetUserAnnouncementsDto request, CancellationToken cancellationToken)
         {
-            var announcements = await announcemenRepository.GetAnnouncementsForUser(request.UserId);
+            var announcements = await announcemenRepository.GetAnnouncementsForUser(request.Email);
             var announcementsView = new List<GetUserAnnouncementsView>();
 
             foreach(var announcement in announcements)
             {
                 announcementsView.Add(new GetUserAnnouncementsView
                 {
+                    Id = announcement.Id.ToString(),
                     Title = announcement.Title,
                     Message = announcement.Message,
-                    Date = announcement.Date
+                    Date = announcement.Date,
+                    IsCreator = announcement.Creator.Email == request.Email
                 });
             }
 
