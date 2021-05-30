@@ -36,6 +36,15 @@ namespace Groups.Api
             return response;
         }
 
+        [Route("user-all")]
+        [HttpGet]
+        public async Task<ApiActionResult> GetUserTests(string email)
+        {
+            var response = await mediator.Send(new GetUserTestsDto { Email = email });
+
+            return response;
+        }
+
         [Route("solve")]
         [HttpPost]
         public async Task<ApiActionResult> AddTestResultAsync(AddTestResultDto testResult)

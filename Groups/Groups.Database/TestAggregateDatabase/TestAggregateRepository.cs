@@ -46,5 +46,14 @@ namespace Groups.Database.TestAggregateDatabase
                 .Include(t => t.Group.Participients)
                 .AnyAsync(t => t.Id.ToString() == testId && t.Group.Participients.Any(p => p.Email == email && p.Role == GroupRoles.Owner));
         }
+
+        public IEnumerable<TestAggregate> GetAllUserTests(string email)
+        {
+            return dbContext
+                .TestAggregate
+                .Include(t => t.Group)
+                .Include(t => t.Group.Participients)
+                .Where(t => t.Group.Participients.Any(p => p.Email == email));
+        }
     }
 }

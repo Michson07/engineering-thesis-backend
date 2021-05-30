@@ -31,9 +31,9 @@ namespace Groups.Application.GroupsCommands
             }
 
             var owner = new Participient(new Email(request.OwnerEmail), GroupRoles.Owner);
-            var group = (GroupAggregate.Create(new List<Participient>() { owner },
+            var group = GroupAggregate.Create(new List<Participient>() { owner },
                 new GroupName(request.Name),
-                request.Description));
+                request.Description, request.Open);
 
             repository.Add(group);
             await repository.SaveChanges();

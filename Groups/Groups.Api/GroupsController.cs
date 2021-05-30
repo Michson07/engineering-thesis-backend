@@ -32,5 +32,32 @@ namespace Groups.Api
 
             return response.Result;
         }
+
+        [Route("findByCode")]
+        [HttpGet]
+        public async Task<ApiActionResult> GetGroupByCodeAsync(string code)
+        {
+            var response = await mediator.Send(new GetGroupByCodeDto { Code = code });
+
+            return response;
+        }
+
+        [Route("findByName")]
+        [HttpGet]
+        public async Task<ApiActionResult> GetGroupByNameAsync(string name)
+        {
+            var response = await mediator.Send(new GetGroupByNameDto { Name = name });
+
+            return response;
+        }
+
+        [Route("join")]
+        [HttpPost]
+        public async Task<ApiActionResult> AddUserToGroup(JoinGroupDto joinGroupModel)
+        {
+            var response = await mediator.Send(joinGroupModel);
+
+            return response.Result;
+        }
     }
 }

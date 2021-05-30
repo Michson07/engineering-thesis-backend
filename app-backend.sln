@@ -38,7 +38,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Info", "Info", "{D3DE74C2-D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Database", "Core\Core.Database\Core.Database.csproj", "{40596C7B-7A56-4006-B86E-E8EA2092FB25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Groups.Application", "Groups\Groups.Application\Groups.Application.csproj", "{2AB7650C-08FF-49D5-BC7B-0B37CADAF6C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Groups.Application", "Groups\Groups.Application\Groups.Application.csproj", "{2AB7650C-08FF-49D5-BC7B-0B37CADAF6C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Services", "Core\Core.Services\Core.Services.csproj", "{CDC7C9FD-ABC3-4E93-95C2-E2F7FDE41D1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -98,6 +100,10 @@ Global
 		{2AB7650C-08FF-49D5-BC7B-0B37CADAF6C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AB7650C-08FF-49D5-BC7B-0B37CADAF6C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AB7650C-08FF-49D5-BC7B-0B37CADAF6C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDC7C9FD-ABC3-4E93-95C2-E2F7FDE41D1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDC7C9FD-ABC3-4E93-95C2-E2F7FDE41D1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDC7C9FD-ABC3-4E93-95C2-E2F7FDE41D1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDC7C9FD-ABC3-4E93-95C2-E2F7FDE41D1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,6 +121,7 @@ Global
 		{10C6900D-6291-45EE-B4F4-FE75F3393B60} = {4CECBF14-5E13-47E0-BEB7-0BAB27A32A45}
 		{40596C7B-7A56-4006-B86E-E8EA2092FB25} = {5D2F94BB-A66B-4F51-99C7-E3C15032EE4D}
 		{2AB7650C-08FF-49D5-BC7B-0B37CADAF6C7} = {4CECBF14-5E13-47E0-BEB7-0BAB27A32A45}
+		{CDC7C9FD-ABC3-4E93-95C2-E2F7FDE41D1E} = {5D2F94BB-A66B-4F51-99C7-E3C15032EE4D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D062C745-11A0-4261-B0B3-11E49DAEAACF}

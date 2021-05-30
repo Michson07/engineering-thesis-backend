@@ -2,13 +2,9 @@
 
 namespace Groups.Application.TestQueries
 {
-    public class TestView
+    public class TestView : TestBasicView
     {
-        public string Name { get; set; } = string.Empty;
         public IEnumerable<QuestionView> Questions { get; set; } = null!;
-        public bool RequirePhoto { get; set; } = false;
-        public int? PassedFrom { get; set; }
-        public int TimeDuration { get; set; }
     }
 
     public class QuestionView

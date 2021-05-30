@@ -5,7 +5,7 @@ namespace Core.Domain.ValueObjects
 {
     public abstract class ValueObject<T> : ValueObject, IComparable where T : IComparable
     {
-        private readonly T value;
+        protected readonly T value;
 
         protected ValueObject()
         {
@@ -16,7 +16,7 @@ namespace Core.Domain.ValueObjects
             this.value = value;
         }
 
-        public static implicit operator T(ValueObject<T>? t) => t == null ? default! : t.value;
+        public static implicit operator T(ValueObject<T> t) => t == null ? default! : t.value;
 
         public override string ToString()
         {

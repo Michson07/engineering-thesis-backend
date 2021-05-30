@@ -19,7 +19,7 @@ namespace Groups.Domain.ValueObjects
     {
         public GroupNameValidation()
         {
-            RuleFor(name => name).NotEmpty().MinimumLength(3).MaximumLength(15);
+            RuleFor(name => name).NotEmpty().MinimumLength(3).MaximumLength(40);
         }
     }
 }

@@ -3,6 +3,7 @@ using Groups.Domain.Aggregates;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Groups.Database.GroupsAggregateDatabase
 {
@@ -22,12 +23,22 @@ namespace Groups.Database.GroupsAggregateDatabase
             return dbContext.GroupAggregate.FirstOrDefault(group => group.GroupName == name);
         }
 
+        public async Task<GroupAggregate?> GetByCode(string code)
+        {
+            return await dbContext.GroupAggregate.Include(g => g.Participients).FirstOrDefaultAsync(g => g.Code == code);
+        }
+
         public GroupAggregate? GetById(string id)
         {
             return dbContext
                 .GroupAggregate
                 .Include(group => group.Participients)
                 .FirstOrDefault(group => group.Id.ToString() == id);
+        }
+
+        public async Task<GroupAggregate?> GetByName(string name)
+        {
+            return await dbContext.GroupAggregate.Include(g => g.Participients).FirstOrDefaultAsync(g => g.GroupName == name);
         }
 
         public IEnumerable<GroupAggregate> GetUserGroups(string email)

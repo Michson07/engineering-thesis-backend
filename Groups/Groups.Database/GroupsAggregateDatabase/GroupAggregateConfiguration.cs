@@ -13,6 +13,7 @@ namespace Groups.Database.GroupAggregateDatabase
         {
             builder.HasKey(o => o.Id);
             builder.Property(o => o.GroupName).IsGroupName().IsRequired();
+            builder.Property(o => o.Code).IsGroupCode();
             builder.OwnsMany(o => o.Participients, participients =>
             {
                 participients.ToTable("Participient");

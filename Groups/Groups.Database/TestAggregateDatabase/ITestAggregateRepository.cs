@@ -12,5 +12,6 @@ namespace Groups.Database.TestAggregateDatabase
         public IEnumerable<TestAggregate>? GetGroupTests(string name);
         public Task<TestAggregate?> GetTestById(string id);
         public Task<bool> UserIsAllowedToCheckResults(string testId, string email);
+        public IEnumerable<TestAggregate> GetAllUserTests(string email);
     }
 }
