@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Users.Api;
 using Groups.Api;
+using Core.Services.EmailService;
+using Notifications.Api;
 
 namespace Api
 {
@@ -41,6 +43,12 @@ namespace Api
 
             //Groups
             services.AddGroupsApi(Configuration);
+
+            //Notifications
+            services.AddNotificationsApi(Configuration);
+
+            //Services
+            services.AddEmailService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

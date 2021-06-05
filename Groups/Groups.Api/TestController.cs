@@ -80,5 +80,12 @@ namespace Groups.Api
 
             return response.Result;
         }
+
+        [Route("send-test-email")]
+        [HttpPost]
+        public async Task SendEmailToUsersAboutTests()
+        {
+            await mediator.Send(new SendNotificationsAboutTomorrowTest());
+        }
     }
 }

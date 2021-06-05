@@ -2,6 +2,7 @@
 using Groups.Domain;
 using Groups.Domain.Aggregates;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -54,6 +55,16 @@ namespace Groups.Database.TestAggregateDatabase
                 .Include(t => t.Group)
                 .Include(t => t.Group.Participients)
                 .Where(t => t.Group.Participients.Any(p => p.Email == email));
+        }
+
+        public async Task<IEnumerable<TestAggregate>> GetFutureTests(DateTime fromDate)
+        {
+            return await dbContext
+                .TestAggregate
+                .Include(t => t.Group)
+                .Include(t => t.Group.Participients)
+                .Where(t => t.Date.CompareTo(fromDate) > 0)
+                .ToListAsync();
         }
     }
 }

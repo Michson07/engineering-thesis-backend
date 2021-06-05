@@ -29,8 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Core\Core.Services\Core.Services.csproj" />
     <ProjectReference Include="..\Groups\Groups.Api\Groups.Api.csproj" />
     <ProjectReference Include="..\Groups\Groups.Database\Groups.Database.csproj" />
+    <ProjectReference Include="..\Notifications\Notifications.Api\Notifications.Api.csproj" />
     <ProjectReference Include="..\Users\Users.Api\Users.Api\Users.Api.csproj" />
     <ProjectReference Include="..\Users\Users.Database\Users.Database.csproj" />
   </ItemGroup>

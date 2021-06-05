@@ -74,6 +74,7 @@ namespace Groups.Domain.Aggregates
             Test = test;
             Student = student;
             StudentAnswers = studentAnswers;
+
             if (test.PassedFrom != null)
             {
                 var resultInPercents = ReceivedPoints / test.MaxPoints * 100;

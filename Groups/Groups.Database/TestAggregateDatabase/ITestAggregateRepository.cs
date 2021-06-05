@@ -1,5 +1,6 @@
 ﻿using Core.Database;
 using Groups.Domain.Aggregates;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace Groups.Database.TestAggregateDatabase
         public void Update(TestAggregate test);
         public IEnumerable<TestAggregate>? GetGroupTests(string name);
         public Task<TestAggregate?> GetTestById(string id);
+        public Task<IEnumerable<TestAggregate>> GetFutureTests(DateTime fromDate);
         public Task<bool> UserIsAllowedToCheckResults(string testId, string email);
         public IEnumerable<TestAggregate> GetAllUserTests(string email);
     }

@@ -22,7 +22,7 @@ namespace Groups.Domain.Aggregates
 
         }
 
-        public AnnouncementAggregate(AnnouncementTitle title, AnnouncementMessage message, GroupAggregate group, Participient creator) : base()
+        private AnnouncementAggregate(AnnouncementTitle title, AnnouncementMessage message, GroupAggregate group, Participient creator) : base()
         {
             Title = title;
             Message = message;

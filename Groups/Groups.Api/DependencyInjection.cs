@@ -3,6 +3,7 @@ using Groups.Database;
 using Groups.Database.AnnouncementAggregateDatabase;
 using Groups.Database.GroupsAggregateDatabase;
 using Groups.Database.QuestionAggregateDatabase;
+using Groups.Database.ResourceAggregateDatabase;
 using Groups.Database.TestAggregateDatabase;
 using Groups.Database.TestResultAggregateDatabase;
 using MediatR;
@@ -29,6 +30,7 @@ namespace Groups.Api
             services.AddScoped<ITestAggregateRepository, TestAggregateRepository>();
             services.AddScoped<ITestResultAggregateRepository, TestResultAggregateRepository>();
             services.AddScoped<IAnnouncementAggregateRepository, AnnouncementAggregateRepository>();
+            services.AddScoped<IResourceAggregateRepository, ResourceAggregateRepository>();
         }
     }
 }

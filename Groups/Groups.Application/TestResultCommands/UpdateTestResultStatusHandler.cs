@@ -4,6 +4,7 @@ using Groups.Database.TestAggregateDatabase;
 using Groups.Database.TestResultAggregateDatabase;
 using Groups.Domain.ValueObjects;
 using MediatR;
+using Notifications.Application.NotificationCommands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +17,13 @@ namespace Groups.Application.TestResultCommands
     {
         private readonly ITestResultAggregateRepository testResultRepository;
         private readonly ITestAggregateRepository testRepository;
+        private readonly IMediator mediator;
 
-        public UpdateTestResultStatusHandler(ITestResultAggregateRepository testResultRepository, ITestAggregateRepository testRepository)
+        public UpdateTestResultStatusHandler(ITestResultAggregateRepository testResultRepository, ITestAggregateRepository testRepository, IMediator mediator)
         {
             this.testResultRepository = testResultRepository;
             this.testRepository = testRepository;
+            this.mediator = mediator;
         }
 
         public async Task<CommandResult> Handle(UpdateTestResultStatusDto request, CancellationToken cancellationToken)
@@ -28,13 +31,13 @@ namespace Groups.Application.TestResultCommands
             var isOwner = await testRepository.UserIsAllowedToCheckResults(request.TestId, request.Email);
             if (!isOwner)
             {
-                throw new Exception("User is not an owner of a group!");
+                throw new Exception("Użytkownik nie jest właścielem grupy");
             }
 
             var testResult = await testResultRepository.GetTestResult(request.UserEmail, request.TestId);
             if (testResult == null)
             {
-                throw new Exception("Test with user does not exists");
+                throw new Exception("Test z podanym użytkownikiem nie istnieje");
             }
 
             var newPoints = request.Questions.Select(q => (q.Question, q.ReceivedPoints));
@@ -43,6 +46,14 @@ namespace Groups.Application.TestResultCommands
 
             testResultRepository.Update(updated);
             await testResultRepository.SaveChanges();
+
+            await mediator.Send(new SendEmailNotificationDto 
+            { 
+                Email = request.UserEmail,
+                Title = $"Test {testResult.Test.Name} został sprawdzony.",
+                Message = $"Test {testResult.Test.Name} został sprawdzony. " +
+                    $"Całkowita liczba uzyskanych puntków wynosi {updated.ReceivedPoints} {GetPercents(updated.ReceivedPoints, updated.Test.MaxPoints)} %)"
+            });
 
             return new CommandResult { Result = new OkResult() };
         }
@@ -57,6 +68,11 @@ namespace Groups.Application.TestResultCommands
             }
 
             return newStudentAnswers;
+        }
+
+        private static int GetPercents(int receivedPoints, int allPoints)
+        {
+            return receivedPoints / allPoints * 100;
         }
     }
 }

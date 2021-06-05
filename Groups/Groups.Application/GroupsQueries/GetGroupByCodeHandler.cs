@@ -2,7 +2,6 @@
 using Groups.Database.GroupsAggregateDatabase;
 using Groups.Domain;
 using MediatR;
-using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
