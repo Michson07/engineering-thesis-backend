@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Chat\Chat.Api\Chat.Api.csproj" />
     <ProjectReference Include="..\Core\Core.Services\Core.Services.csproj" />
     <ProjectReference Include="..\Groups\Groups.Api\Groups.Api.csproj" />
     <ProjectReference Include="..\Groups\Groups.Database\Groups.Database.csproj" />

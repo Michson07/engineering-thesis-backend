@@ -8,6 +8,7 @@ using Users.Api;
 using Groups.Api;
 using Core.Services.EmailService;
 using Notifications.Api;
+using Chat.Api;
 
 namespace Api
 {
@@ -46,6 +47,9 @@ namespace Api
 
             //Notifications
             services.AddNotificationsApi(Configuration);
+
+            //Chat
+            services.AddChatApi(Configuration);
 
             //Services
             services.AddEmailService();

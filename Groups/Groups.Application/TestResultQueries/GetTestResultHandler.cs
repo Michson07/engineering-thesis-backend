@@ -26,10 +26,10 @@ namespace Groups.Application.TestResultQueries
         public async Task<QueryResult<TestResultView>> Handle(GetTestResultDto request, CancellationToken cancellationToken)
         {
             var userResult = await repository.GetTestResult(request.Email, request.TestId);
+            var test = await testRepository.GetTestById(request.TestId);
+
             if (userResult == null)
             {
-                var test = await testRepository.GetTestById(request.TestId);
-
                 if (test != null && test.Date.AddMinutes(test.TimeDuration) < DateTime.Now)
                 {
                     userResult = TestResultAggregate.CreateForAbsent(test, test.Group.Participients.First(p => p.Email == request.Email));
@@ -42,6 +42,8 @@ namespace Groups.Application.TestResultQueries
             }
 
             var response = new TestResultMapper().MapToTestResultView(userResult);
+            response.TestName = test!.Name;
+            response.PassedFrom = test.PassedFrom;
 
             await repository.SaveChanges();
 

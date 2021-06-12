@@ -8,6 +8,8 @@ namespace Groups.Application.TestResultQueries
         public bool Checked { get; set; }
         public int ReceivedPoints { get; set; }
         public string? InfoAboutPoints { get; set; }
+        public string TestName { get; set; } = string.Empty;
+        public int? PassedFrom { get; set; }
         public IEnumerable<QuestionView> Questions { get; set; } = new List<QuestionView>();
     }
 

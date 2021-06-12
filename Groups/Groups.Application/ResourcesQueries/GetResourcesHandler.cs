@@ -1,7 +1,6 @@
 ﻿using Core.Application;
 using Groups.Database.GroupsAggregateDatabase;
 using Groups.Database.ResourceAggregateDatabase;
-using Groups.Domain.Aggregates;
 using MediatR;
 using System;
 using System.Collections.Generic;

@@ -2,10 +2,7 @@
 using FluentValidation;
 using Groups.Domain.ValueObjects;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Groups.Domain.Aggregates
 {
