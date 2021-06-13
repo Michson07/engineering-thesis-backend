@@ -1,5 +1,6 @@
 ﻿using Chat.Application.GroupConversationCommands;
 using Chat.Database;
+using Chat.Database.ChatDatabase;
 using Chat.Database.GroupChatAggregateDatabase;
 using Chat.Database.PrivateChatAggregateDatabase;
 using MediatR;
@@ -23,6 +24,7 @@ namespace Chat.Api
                     x => x.MigrationsAssembly("Chat.Database")));
             services.AddScoped<IGroupChatAggregateRepository, GroupChatAggregateRepository>();
             services.AddScoped<IPrivateChatAggregateRepository, PrivateChatAggregateRepository>();
+            services.AddScoped<IChatRepository, ChatRepository>();
         }
     }
 }

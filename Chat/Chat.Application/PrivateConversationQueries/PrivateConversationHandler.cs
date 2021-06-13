@@ -19,7 +19,7 @@ namespace Chat.Application.PrivateConversationQueries
 
         public async Task<QueryResult<List<MessageView>>> Handle(PrivateConversationDto request, CancellationToken cancellationToken)
         {
-            var chatExists = await repository.Get(request.SenderId, request.RecipientId);
+            var chatExists = await repository.Get(request.SenderEmail, request.RecipientEmail);
 
             var view = MapToView(chatExists);
 
@@ -35,7 +35,7 @@ namespace Chat.Application.PrivateConversationQueries
                 {
                     view.Add(new MessageView
                     {
-                        User = message.UserId.ToString(),
+                        User = message.UserEmail.ToString(),
                         Text = message.Text,
                         Date = message.Date
                     });

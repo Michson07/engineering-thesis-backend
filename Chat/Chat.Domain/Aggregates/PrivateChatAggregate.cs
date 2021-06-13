@@ -1,5 +1,6 @@
 ﻿using Chat.Domain.ValueObjects;
 using Core.Domain;
+using Core.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 
@@ -7,24 +8,24 @@ namespace Chat.Domain.Aggregates
 {
     public class PrivateChatAggregate : AggregateRoot
     {
-        public Guid User1Id { get; private set; }
-        public Guid User2Id { get; private set; }
+        public Email User1Email { get; private set; }
+        public Email User2Email { get; private set; }
         public ICollection<Message> Messages { get; private set; }
 
         private PrivateChatAggregate()
         {
         }
 
-        private PrivateChatAggregate(string user1Id, string user2Id, Message message)
+        private PrivateChatAggregate(Email user1Email, Email user2Email, Message message)
         {
-            User1Id = new Guid(user1Id);
-            User2Id = new Guid(user2Id);
+            User1Email = user1Email;
+            User2Email = user2Email;
             Messages = new List<Message>() { message };
         }
 
-        public static PrivateChatAggregate Create(string user1Id, string user2Id, Message message)
+        public static PrivateChatAggregate Create(Email user1Email, Email user2Email, Message message)
         {
-            return new PrivateChatAggregate(user1Id, user2Id, message);
+            return new PrivateChatAggregate(user1Email, user2Email, message);
         }
 
         public PrivateChatAggregate Update(Message message)

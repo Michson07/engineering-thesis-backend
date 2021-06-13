@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Core.Application\Core.Application.csproj" />
+    <ProjectReference Include="..\..\Groups\Groups.Application\Groups.Application.csproj" />
     <ProjectReference Include="..\Chat.Database\Chat.Database.csproj" />
   </ItemGroup>
 

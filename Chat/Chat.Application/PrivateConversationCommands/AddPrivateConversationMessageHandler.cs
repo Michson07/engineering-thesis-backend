@@ -3,6 +3,7 @@ using Chat.Domain.Aggregates;
 using Chat.Domain.ValueObjects;
 using Core.Api;
 using Core.Application;
+using Core.Domain.ValueObjects;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,12 +21,16 @@ namespace Chat.Application.PrivateConversationCommands
 
         public async Task<CommandResult> Handle(AddPrivateConversationMessageDto request, CancellationToken cancellationToken)
         {
-            var chatExists = await repository.Get(request.SenderId, request.RecipientId);
-            var message = new Message(request.SenderId, request.Message);
+            var chatExists = await repository.Get(request.SenderEmail, request.RecipientEmail);
+            var message = new Message(new Email(request.SenderEmail), request.Message);
 
             if (chatExists == null)
             {
-                var chat = PrivateChatAggregate.Create(request.SenderId, request.RecipientId, message);
+                var chat = PrivateChatAggregate.Create(
+                    new Email(request.SenderEmail),
+                    new Email(request.RecipientEmail), 
+                    message);
+
                 await repository.Add(chat);
             }
             else

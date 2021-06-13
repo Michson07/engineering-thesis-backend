@@ -1,6 +1,7 @@
 ﻿using Chat.Domain.Aggregates;
 using Core.Database;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading.Tasks;
 
 namespace Chat.Database.PrivateChatAggregateDatabase
@@ -16,11 +17,18 @@ namespace Chat.Database.PrivateChatAggregateDatabase
             await dbContext.AddAsync(chat);
         }
 
-        public async Task<PrivateChatAggregate?> Get(string senderId, string recipientId)
+        public async Task<PrivateChatAggregate?> Get(string senderEmail, string recipientEmail)
         {
             return await dbContext
                 .PrivateChatAggregate
-                .FirstOrDefaultAsync(chat => chat.User1Id.ToString() == senderId && chat.User2Id.ToString() == recipientId);
+                .FirstOrDefaultAsync(chat => chat.User1Email.ToString() == senderEmail && chat.User2Email.ToString() == recipientEmail);
+        }
+
+        public async Task<PrivateChatAggregate?> GetById(Guid id)
+        {
+            return await dbContext
+                .PrivateChatAggregate
+                .FirstOrDefaultAsync(chat => chat.Id == id);
         }
 
         public void Update(PrivateChatAggregate chat)

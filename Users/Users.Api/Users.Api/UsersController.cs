@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Users.Application.Commands;
+using Users.Application.Queries;
 using Users.Application.Queries.GetUserByPhoto;
 
 namespace Users.Api
@@ -23,6 +24,15 @@ namespace Users.Api
             var response = mediator.Send(new GetUserByPhotoDto { Email = email });
 
             return response.Result.BodyResponse;
+        }
+
+        [Route("all")]
+        [HttpGet]
+        public async Task<ApiActionResult> GetAllUsersAsync()
+        {
+            var response = await mediator.Send(new GetAllUsersDto());
+
+            return response;
         }
 
         [HttpPost]

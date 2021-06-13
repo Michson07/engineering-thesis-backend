@@ -1,6 +1,6 @@
 ﻿namespace Users.Application.Queries
 {
-    public class GetUserByEmailView
+    public class UserView
     {
         public string Email { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;

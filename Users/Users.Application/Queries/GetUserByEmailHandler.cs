@@ -6,7 +6,7 @@ using Users.Database.UserAggregateDatabase;
 
 namespace Users.Application.Queries
 {
-    public class GetUserByEmailHandler : IRequestHandler<GetUserByEmailDto, QueryResult<GetUserByEmailView>>
+    public class GetUserByEmailHandler : IRequestHandler<GetUserByEmailDto, QueryResult<UserView>>
     {
         private readonly IUserAggregateRepository repository;
 
@@ -15,11 +15,11 @@ namespace Users.Application.Queries
             this.repository = repository;
         }
 
-        public Task<QueryResult<GetUserByEmailView>> Handle(GetUserByEmailDto request, CancellationToken cancellationToken)
+        public Task<QueryResult<UserView>> Handle(GetUserByEmailDto request, CancellationToken cancellationToken)
         {
             var user = repository.Get(request.Email);
             var userView = user != null ?
-                new GetUserByEmailView
+                new UserView
                 {
                     Email = user.Email,
                     Name = user.Name,
@@ -27,7 +27,7 @@ namespace Users.Application.Queries
                     Photo = user.Photo?.Image
                 } : null;
 
-            return Task.FromResult(new QueryResult<GetUserByEmailView> { BodyResponse = userView });
+            return Task.FromResult(new QueryResult<UserView> { BodyResponse = userView });
         }
     }
 }

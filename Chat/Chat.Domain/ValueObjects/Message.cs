@@ -6,7 +6,7 @@ namespace Chat.Domain.ValueObjects
 {
     public class Message : ValueObject
     {
-        public Guid UserId { get; init; }
+        public Email UserEmail { get; init; }
         public string Text { get; init; }
         public DateTime Date { get; init; }
 
@@ -15,16 +15,16 @@ namespace Chat.Domain.ValueObjects
 
         }
 
-        public Message(string userId, string text)
+        public Message(Email userEmail, string text)
         {
-            UserId = new Guid(userId);
+            UserEmail = userEmail;
             Text = text;
             Date = DateTime.Now;
         }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return UserId;
+            yield return UserEmail;
             yield return Text;
             yield return Date;
         }

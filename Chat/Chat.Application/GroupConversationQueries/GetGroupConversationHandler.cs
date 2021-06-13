@@ -38,7 +38,7 @@ namespace Chat.Application.GroupConversationQueries
                 {
                     view.Add(new MessageView
                     {
-                        User = message.UserId.ToString(),
+                        User = message.UserEmail.ToString(),
                         Text = message.Text,
                         Date = message.Date
                     });

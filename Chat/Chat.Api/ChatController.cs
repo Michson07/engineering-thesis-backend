@@ -2,6 +2,7 @@
 using Chat.Application.GroupConversationQueries;
 using Chat.Application.PrivateConversationCommands;
 using Chat.Application.PrivateConversationQueries;
+using Chat.Application.UserConversationsQueries;
 using Core.Api;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +50,15 @@ namespace Chat.Api
         public async Task<ApiActionResult> GetPrivateConversationAsync(PrivateConversationDto converation)
         {
             var response = await mediator.Send(converation);
+
+            return response;
+        }
+
+        [Route("forUser")]
+        [HttpGet]
+        public async Task<ApiActionResult> GetUserConversationsAsync(string userEmail)
+        {
+            var response = await mediator.Send(new GetUserConverstationsDto { UserEmail = userEmail });
 
             return response;
         }

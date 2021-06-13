@@ -6,7 +6,7 @@ namespace Chat.Application.PrivateConversationQueries
 {
     public class PrivateConversationDto : IRequest<QueryResult<List<MessageView>>>
     {
-        public string SenderId { get; set; } = string.Empty;
-        public string RecipientId { get; set; } = string.Empty;
+        public string SenderEmail { get; set; } = string.Empty;
+        public string RecipientEmail { get; set; } = string.Empty;
     }
 }

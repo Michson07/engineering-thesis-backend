@@ -3,6 +3,7 @@ using Chat.Domain.Aggregates;
 using Chat.Domain.ValueObjects;
 using Core.Api;
 using Core.Application;
+using Core.Domain.ValueObjects;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace Chat.Application.GroupConversationCommands
         public async Task<CommandResult> Handle(AddGroupConversationMessageDto request, CancellationToken cancellationToken)
         {
             var groupChatExists = await repository.Get(request.GroupId);
-            var message = new Message(request.SenderId, request.Message);
+            var message = new Message(new Email(request.SenderId), request.Message);
 
             if (groupChatExists == null)
             {
