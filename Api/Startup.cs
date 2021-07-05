@@ -33,10 +33,10 @@ namespace Api
 
             services.AddCors(options =>
             {
-            options.AddPolicy("CorsPolicy",
-                builder => builder.AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod());
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
             });
 
             //Users

@@ -22,7 +22,7 @@ namespace Chat.Application.GroupConversationCommands
         public async Task<CommandResult> Handle(AddGroupConversationMessageDto request, CancellationToken cancellationToken)
         {
             var groupChatExists = await repository.Get(request.GroupId);
-            var message = new Message(new Email(request.SenderId), request.Message);
+            var message = new Message(new Email(request.SenderEmail), request.Message);
 
             if (groupChatExists == null)
             {

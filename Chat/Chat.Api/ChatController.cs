@@ -47,9 +47,10 @@ namespace Chat.Api
         }
 
         [HttpGet]
-        public async Task<ApiActionResult> GetPrivateConversationAsync(PrivateConversationDto converation)
+        public async Task<ApiActionResult> GetPrivateConversationAsync(string senderEmail, string recipientEmail)
         {
-            var response = await mediator.Send(converation);
+            var conversation = new PrivateConversationDto { SenderEmail = senderEmail, RecipientEmail = recipientEmail };
+            var response = await mediator.Send(conversation);
 
             return response;
         }

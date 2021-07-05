@@ -35,7 +35,7 @@ namespace Chat.Application.PrivateConversationQueries
                 {
                     view.Add(new MessageView
                     {
-                        User = message.UserEmail.ToString(),
+                        User = message.UserEmail,
                         Text = message.Text,
                         Date = message.Date
                     });

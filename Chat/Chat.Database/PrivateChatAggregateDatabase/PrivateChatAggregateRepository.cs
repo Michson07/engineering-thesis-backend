@@ -18,10 +18,12 @@ namespace Chat.Database.PrivateChatAggregateDatabase
         }
 
         public async Task<PrivateChatAggregate?> Get(string senderEmail, string recipientEmail)
-        {
+        {            
             return await dbContext
                 .PrivateChatAggregate
-                .FirstOrDefaultAsync(chat => chat.User1Email.ToString() == senderEmail && chat.User2Email.ToString() == recipientEmail);
+                .FirstOrDefaultAsync(chat => 
+                    chat.User1Email == senderEmail && chat.User2Email == recipientEmail
+                    || chat.User1Email == recipientEmail && chat.User2Email == senderEmail);
         }
 
         public async Task<PrivateChatAggregate?> GetById(Guid id)
