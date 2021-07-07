@@ -1,5 +1,4 @@
-﻿using Core.Domain.ValueObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,10 +18,10 @@ namespace Chat.Database.ChatDatabase
         public DateTime LastMessageDate { get; init; }
 
         public ConversationBasic(
-            Guid entityId, 
+            Guid entityId,
             bool entityIsGroup,
             bool entityIsPrivate,
-            string lastMessage, 
+            string lastMessage,
             DateTime lastMessageDate)
         {
             EntityId = entityId;
