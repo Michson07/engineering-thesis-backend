@@ -1,7 +1,6 @@
 ﻿using Chat.Domain.ValueObjects;
 using Core.Domain;
 using Core.Domain.ValueObjects;
-using System;
 using System.Collections.Generic;
 
 namespace Chat.Domain.Aggregates

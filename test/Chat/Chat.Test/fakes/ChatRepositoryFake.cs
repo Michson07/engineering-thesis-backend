@@ -1,6 +1,5 @@
 ﻿using Chat.Database.ChatDatabase;
 using Chat.Database.GroupChatAggregateDatabase;
-using Chat.Database.PrivateChatAggregateDatabase;
 using Chat.Domain.Aggregates;
 using System;
 using System.Collections.Generic;
@@ -12,7 +11,13 @@ namespace Chat.Application.Test.fakes
     public class ChatRepositoryFake : IChatRepository
     {
         private readonly IGroupChatAggregateRepository groupChatAggregateRepository;
-        private readonly PrivateChatAggregateRepositoryFake privateChatAggregateRepository = new PrivateChatAggregateRepositoryFake();
+        private readonly PrivateChatAggregateRepositoryFake privateChatAggregateRepository;
+
+        public ChatRepositoryFake(IGroupChatAggregateRepository groupChatAggregateRepository, PrivateChatAggregateRepositoryFake privateChatAggregateRepository)
+        {
+            this.groupChatAggregateRepository = groupChatAggregateRepository;
+            this.privateChatAggregateRepository = privateChatAggregateRepository;
+        }
 
         public Task<IEnumerable<ConversationBasic>> Get(string userEmail, IEnumerable<Guid> groupsIds)
         {
@@ -24,7 +29,7 @@ namespace Chat.Application.Test.fakes
                     groupChat.GroupId, true, false, groupChat.Messages.Last().Text, groupChat.Messages.Last().Date))
                 .Union(privateChats.Select(privateChat => new ConversationBasic(
                     privateChat.Id, false, true, privateChat.Messages.Last().Text, privateChat.Messages.Last().Date)));
-            
+
             return Task.FromResult(chats);
         }
 

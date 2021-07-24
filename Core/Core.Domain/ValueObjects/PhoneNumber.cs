@@ -11,6 +11,8 @@ namespace Core.Domain.ValueObjects
         public PhoneNumber(string number)
         {
             Number = number;
+
+            new PhoneNumberValidation().ValidateAndThrow(this);
         }
 
         protected override IEnumerable<object> GetEqualityComponents()
@@ -23,7 +25,7 @@ namespace Core.Domain.ValueObjects
     {
         public PhoneNumberValidation()
         {
-            RuleFor(x => x.Number).SetValidator(new RegularExpressionValidator(@"^[2-9]\d{2}-\d{3}-\d{4}$"));
+            RuleFor(x => x.Number).SetValidator(new RegularExpressionValidator(@"^((?:[0-9]\-?){6,14}[0-9])|((?:[0-9]\x20?){6,14}[0-9])$"));
         }
     }
 }

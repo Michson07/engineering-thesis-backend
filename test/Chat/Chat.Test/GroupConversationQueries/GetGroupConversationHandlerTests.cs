@@ -3,7 +3,6 @@ using Chat.Domain.Aggregates;
 using Chat.Domain.ValueObjects;
 using Core.Domain.ValueObjects;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -41,6 +40,16 @@ namespace Chat.Application.Test.GroupConversationQueries
             Assert.True(messages.Count == 1);
             Assert.Equal(expectedMessageView.Text, message.Text);
             Assert.Equal(expectedMessageView.User, message.User);
+        }
+
+        [Fact]
+        public async Task ShouldGetEmptyConversationAsync()
+        {
+            var result = await handler.Handle(new GroupConversationDto { GroupId = "B3AD9BDC-3B4C-42ED-A59A-AFFEB87E7D00" }, CancellationToken.None);
+
+            var messages = result.BodyResponse;
+
+            Assert.Empty(messages);
         }
     }
 }

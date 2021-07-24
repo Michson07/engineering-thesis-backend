@@ -2,10 +2,7 @@
 using Chat.Domain.Aggregates;
 using Core.Application;
 using MediatR;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -32,7 +29,7 @@ namespace Chat.Application.GroupConversationQueries
         private List<MessageView> MapToView(GroupChatAggregate? chat)
         {
             var view = new List<MessageView>();
-            if(chat != null)
+            if (chat != null)
             {
                 foreach (var message in chat.Messages)
                 {

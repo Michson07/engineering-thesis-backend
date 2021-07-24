@@ -5,21 +5,23 @@ using Chat.Database.PrivateChatAggregateDatabase;
 using Core.Application.Test;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Chat.Application.Test.GroupConversationQueries
+namespace Chat.Application.Test
 {
     public class ChatServicesMock : ServicesMock
     {
         protected IGroupChatAggregateRepository groupChatRepository = new GroupChatAggregateRepositoryFake();
         protected IPrivateChatAggregateRepository privateChatAggregateRepository = new PrivateChatAggregateRepositoryFake();
-        protected IChatRepository chatRepository = new ChatRepositoryFake();
+        protected IChatRepository chatRepository;
 
         protected ChatServicesMock()
         {
+            chatRepository = new ChatRepositoryFake(groupChatRepository, (PrivateChatAggregateRepositoryFake)privateChatAggregateRepository);
             var services = new ServiceCollection();
 
             services.AddSingleton(groupChatRepository);
             services.AddSingleton(privateChatAggregateRepository);
             services.AddSingleton(chatRepository);
+
         }
     }
 }

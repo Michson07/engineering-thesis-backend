@@ -59,7 +59,7 @@ namespace Chat.Application.UserConversationsQueries
             var conversations = new List<UserConversationsView>();
             foreach (var chat in chats)
             {
-                var groupName = userGroups.FirstOrDefault(group => group.Id == chat.EntityId.ToString())?.Name;
+                var groupName = userGroups.FirstOrDefault(group => group.Id.Equals(chat.EntityId.ToString(), StringComparison.OrdinalIgnoreCase))?.Name;
                 if (groupName != null)
                 {
                     conversations.Add(new UserConversationsView

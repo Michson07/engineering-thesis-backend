@@ -41,7 +41,6 @@ namespace Core.Services.EmailService
             {
                 Console.WriteLine(ex);
             }
-            
         }
 
         public async Task SendToMultipleRecipientsAsync(IEnumerable<Email> emails, EmailMessage message)

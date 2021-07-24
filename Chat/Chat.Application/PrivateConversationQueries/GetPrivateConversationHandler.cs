@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Chat.Application.PrivateConversationQueries
 {
-    public class PrivateConversationHandler : IRequestHandler<PrivateConversationDto, QueryResult<List<MessageView>>>
+    public class GetPrivateConversationHandler : IRequestHandler<PrivateConversationDto, QueryResult<List<MessageView>>>
     {
         private readonly IPrivateChatAggregateRepository repository;
 
-        public PrivateConversationHandler(IPrivateChatAggregateRepository repository)
+        public GetPrivateConversationHandler(IPrivateChatAggregateRepository repository)
         {
             this.repository = repository;
         }

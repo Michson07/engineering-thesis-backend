@@ -1,5 +1,6 @@
 ﻿using Chat.Database.GroupChatAggregateDatabase;
 using Chat.Domain.Aggregates;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace Chat.Application.Test.fakes
 
         public Task<GroupChatAggregate> Get(string groupId)
         {
-            var chat = chats.FirstOrDefault(c => c.GroupId.ToString() == groupId);
+            var chat = chats.FirstOrDefault(c => c.GroupId.ToString().Equals(groupId, StringComparison.OrdinalIgnoreCase));
 
             return Task.FromResult(chat);
         }
