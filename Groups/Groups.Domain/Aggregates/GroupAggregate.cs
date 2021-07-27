@@ -1,6 +1,8 @@
 ﻿using Core.Domain;
+using FluentValidation;
 using Groups.Domain.ValueObjects;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Groups.Domain.Aggregates
 {
@@ -26,18 +28,31 @@ namespace Groups.Domain.Aggregates
         public static GroupAggregate Create(IEnumerable<Participient> participients, GroupName groupName, string description, bool open = true)
         {
             var group = new GroupAggregate(participients, groupName, description, open);
+            new GroupAggregateValidator().ValidateAndThrow(group);
 
             return group;
         }
 
         public GroupAggregate Update(IEnumerable<Participient> participients, GroupName groupName, string description, bool open = true)
         {
+            var group = new GroupAggregate(participients, groupName, description, open);
+            new GroupAggregateValidator().ValidateAndThrow(group);
+
             Participients = participients;
             GroupName = groupName;
             Description = description;
             Code = open ? null : new GroupAccessCode();
 
             return this;
+        }
+    }
+
+    public class GroupAggregateValidator : AbstractValidator<GroupAggregate>
+    {
+        public GroupAggregateValidator()
+        {
+            RuleFor(x => x.Participients).NotEmpty();
+            RuleFor(x => x.Participients.Where(participient => participient.Role == GroupRoles.Owner)).NotEmpty();
         }
     }
 }

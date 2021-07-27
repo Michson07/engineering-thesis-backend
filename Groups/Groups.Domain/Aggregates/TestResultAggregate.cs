@@ -71,6 +71,9 @@ namespace Groups.Domain.Aggregates
         public TestResultAggregate Update(TestAggregate test, Participient student,
             IEnumerable<StudentAnswer> studentAnswers)
         {
+            var testResult = new TestResultAggregate(test, student, studentAnswers);
+            new TestResultValidation().ValidateAndThrow(testResult);
+
             Test = test;
             Student = student;
             StudentAnswers = studentAnswers;
@@ -80,9 +83,9 @@ namespace Groups.Domain.Aggregates
                 var resultInPercents = ReceivedPoints / test.MaxPoints * 100;
                 State = resultInPercents >= test.PassedFrom ? "Passed" : "NotPassed";
             }
-            Checked = CheckedState.Checked;
 
-            new TestResultValidation().ValidateAndThrow(this);
+            Checked = CheckedState.Checked;
+            
             if (ReceivedPoints > test.MaxPoints)
             {
                 throw new ApplicationException("Received points cannot be greater than max test points");
@@ -97,9 +100,7 @@ namespace Groups.Domain.Aggregates
         public TestResultValidation()
         {
             RuleFor(tr => tr.Id).NotEmpty();
-            RuleFor(tr => tr.Test).NotNull();
-            RuleFor(tr => tr.Student).NotNull();
-            RuleFor(tr => tr.ReceivedPoints).GreaterThan(0);
+            RuleFor(tr => tr.ReceivedPoints).GreaterThanOrEqualTo(0);
             RuleFor(tr => tr.Checked).Must(state => state == CheckedState.NotChecked || state == CheckedState.Checked);
             When(tr => tr.State != null, () =>
             {

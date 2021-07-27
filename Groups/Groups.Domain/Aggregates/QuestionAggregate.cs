@@ -11,7 +11,7 @@ namespace Groups.Domain.Aggregates
     {
         public string Title { get; init; } = null!;
         public Photo? Photo { get; init; }
-        public IEnumerable<Answer>? Answers { get; init; } = null!;
+        public IEnumerable<Answer>? Answers { get; init; }
         public bool ClosedQuestion { get; init; } = true;
         public int PointsForAnswer { get; init; } = 0;
 
@@ -50,9 +50,14 @@ namespace Groups.Domain.Aggregates
             RuleFor(question => question.PointsForQuestion).GreaterThan(0);
             RuleFor(question => question.Title).NotEmpty().NotNull();
 
-            When(question => !question.ManyCorrectAnswers, () =>
+            When(question => !question.ManyCorrectAnswers && question.Answers != null, () =>
             {
                 RuleFor(question => question.Answers).Must(answers => answers!.Count(a => a.Correct) == 1);
+            });
+
+            When(question => question.ClosedQuestion, () =>
+            {
+                RuleFor(question => question.Answers).Must(answers => answers!.Count() >= 2);
             });
 
             When(question => question.ManyCorrectAnswers, () =>
