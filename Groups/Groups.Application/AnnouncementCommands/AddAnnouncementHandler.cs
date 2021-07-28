@@ -14,12 +14,12 @@ namespace Groups.Application.AnnouncementCommands
 {
     public class AddAnnouncementHandler : IRequestHandler<AddAnnouncementDto, CommandResult>
     {
-        private readonly IAnnouncementAggregateRepository announcemenRepository;
+        private readonly IAnnouncementAggregateRepository announcementRepository;
         private readonly IGroupAggregateRepository groupRepository;
 
-        public AddAnnouncementHandler(IAnnouncementAggregateRepository announcemenRepository, IGroupAggregateRepository groupRepository)
+        public AddAnnouncementHandler(IAnnouncementAggregateRepository announcementRepository, IGroupAggregateRepository groupRepository)
         {
-            this.announcemenRepository = announcemenRepository;
+            this.announcementRepository = announcementRepository;
             this.groupRepository = groupRepository;
         }
 
@@ -44,8 +44,8 @@ namespace Groups.Application.AnnouncementCommands
                 creator
             );
 
-            await announcemenRepository.Add(announcement);
-            await announcemenRepository.SaveChanges();
+            await announcementRepository.Add(announcement);
+            await announcementRepository.SaveChanges();
 
             return new CommandResult { Result = new OkResult() };
         }

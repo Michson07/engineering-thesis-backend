@@ -1,10 +1,7 @@
 ﻿using Core.Application;
 using Groups.Database.AnnouncementAggregateDatabase;
 using MediatR;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,7 +21,7 @@ namespace Groups.Application.AnnouncementQueries
             var announcements = await announcemenRepository.GetAnnouncementsForUser(request.Email);
             var announcementsView = new List<GetUserAnnouncementsView>();
 
-            foreach(var announcement in announcements)
+            foreach (var announcement in announcements)
             {
                 announcementsView.Add(new GetUserAnnouncementsView
                 {

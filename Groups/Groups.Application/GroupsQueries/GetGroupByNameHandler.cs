@@ -2,7 +2,6 @@
 using Groups.Database.GroupsAggregateDatabase;
 using Groups.Domain;
 using MediatR;
-using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -41,7 +40,7 @@ namespace Groups.Application.GroupsQueries
             }
 
             var groupOwnerEmail = group.Participients.First(g => g.Role == GroupRoles.Owner).Email;
-            var groupOwner = mediator.Send(new GetUserByEmailDto { Email = groupOwnerEmail }).Result.BodyResponse;
+            var groupOwner = (await mediator.Send(new GetUserByEmailDto { Email = groupOwnerEmail })).BodyResponse;
             var groupOwnerNameLastName = groupOwner!.Name + " " + groupOwner!.LastName;
 
             return new QueryResult<GroupBasicView>

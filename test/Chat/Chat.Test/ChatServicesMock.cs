@@ -3,7 +3,6 @@ using Chat.Database.ChatDatabase;
 using Chat.Database.GroupChatAggregateDatabase;
 using Chat.Database.PrivateChatAggregateDatabase;
 using Core.Application.Test;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Chat.Application.Test
 {
@@ -16,12 +15,6 @@ namespace Chat.Application.Test
         protected ChatServicesMock()
         {
             chatRepository = new ChatRepositoryFake(groupChatRepository, (PrivateChatAggregateRepositoryFake)privateChatAggregateRepository);
-            var services = new ServiceCollection();
-
-            services.AddSingleton(groupChatRepository);
-            services.AddSingleton(privateChatAggregateRepository);
-            services.AddSingleton(chatRepository);
-
         }
     }
 }

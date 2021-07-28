@@ -7,7 +7,6 @@ namespace Groups.Database.GroupsAggregateDatabase
 {
     public interface IGroupAggregateRepository : IAggregateRepository
     {
-        public GroupAggregate? Get(string name);
         public GroupAggregate? GetById(string id);
         public Task<GroupAggregate?> GetByCode(string code);
         public Task<GroupAggregate?> GetByName(string name);

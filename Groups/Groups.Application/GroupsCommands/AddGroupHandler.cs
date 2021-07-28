@@ -23,7 +23,7 @@ namespace Groups.Application.GroupsCommands
 
         public async Task<CommandResult> Handle(AddGroupDto request, CancellationToken cancellationToken)
         {
-            var groupExists = repository.Get(request.Name);
+            var groupExists = await repository.GetByName(request.Name);
 
             if (groupExists != null)
             {

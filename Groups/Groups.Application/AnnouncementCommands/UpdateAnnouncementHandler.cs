@@ -11,16 +11,16 @@ namespace Groups.Application.AnnouncementCommands
 {
     public class UpdateAnnouncementHandler : IRequestHandler<UpdateAnnouncementDto, CommandResult>
     {
-        private readonly IAnnouncementAggregateRepository announcemenRepository;
+        private readonly IAnnouncementAggregateRepository announcementRepository;
 
-        public UpdateAnnouncementHandler(IAnnouncementAggregateRepository announcemenRepository)
+        public UpdateAnnouncementHandler(IAnnouncementAggregateRepository announcementRepository)
         {
-            this.announcemenRepository = announcemenRepository;
+            this.announcementRepository = announcementRepository;
         }
 
         public async Task<CommandResult> Handle(UpdateAnnouncementDto request, CancellationToken cancellationToken)
         {
-            var announcement = await announcemenRepository.GetById(request.Id);
+            var announcement = await announcementRepository.GetById(request.Id);
             if (announcement == null)
             {
                 throw new Exception("Podane ogłoszenie nie istnieje");
@@ -29,8 +29,8 @@ namespace Groups.Application.AnnouncementCommands
             var updatedAnnouncement = announcement.Update(new AnnouncementTitle(request.Title),
                 new AnnouncementMessage(request.Message));
 
-            announcemenRepository.Update(updatedAnnouncement);
-            await announcemenRepository.SaveChanges();
+            announcementRepository.Update(updatedAnnouncement);
+            await announcementRepository.SaveChanges();
 
             return new CommandResult { Result = new OkResult() };
         }
