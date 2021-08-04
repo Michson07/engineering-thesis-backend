@@ -53,7 +53,7 @@ namespace Groups.Application.TestResultCommands
                 Title = $"Test {testResult.Test.Name} został sprawdzony.",
                 Message = $"Test {testResult.Test.Name} został sprawdzony. " +
                     $"Całkowita liczba uzyskanych puntków wynosi {updated.ReceivedPoints} {GetPercents(updated.ReceivedPoints, updated.Test.MaxPoints)} %)"
-            });
+            }, cancellationToken);
 
             return new CommandResult { Result = new OkResult() };
         }

@@ -45,7 +45,8 @@ namespace Groups.Application.ResourcesQueries
                     Name = resource.Name,
                     FileName = resource.FileName,
                     Type = resource.FileType,
-                    Date = resource.AddedDate
+                    Date = resource.AddedDate,
+                    Url = resource.Url
                 });
             }
 

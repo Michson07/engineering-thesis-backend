@@ -1,11 +1,7 @@
 ﻿using Core.Application;
-using Groups.Database.GroupsAggregateDatabase;
 using Groups.Database.ResourceAggregateDatabase;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,9 +20,13 @@ namespace Groups.Application.ResourcesQueries
         {
             var resource = await resourceRepository.GetResourceById(request.Id);
 
-            if(resource == null)
+            if (resource == null)
             {
                 throw new Exception($"Nie znaleziono materiału o id {request.Id}");
+            }
+            if (resource.File == null)
+            {
+                throw new Exception($"Materiał nie zawiera pliku");
             }
 
             return new QueryResult<ResourceValueView> { BodyResponse = new ResourceValueView { Value = resource.File.Value } };

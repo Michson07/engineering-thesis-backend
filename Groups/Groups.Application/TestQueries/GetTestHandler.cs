@@ -36,6 +36,7 @@ namespace Groups.Application.TestQueries
         {
             var testView = new TestView
             {
+                Date = test.Date,
                 Name = test.Name,
                 RequirePhoto = test.RequirePhoto,
                 PassedFrom = test.PassedFrom,

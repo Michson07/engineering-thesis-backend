@@ -16,6 +16,8 @@ namespace Groups.Application.TestResultQueries
                 Checked = userResult.Checked == CheckedState.Checked,
                 ReceivedPoints = userResult.ReceivedPoints,
                 InfoAboutPoints = GetStatus(userResult),
+                TestName = userResult.Test.Name,
+                PassedFrom = userResult.Test.PassedFrom,
                 Questions = MapToQuestionsView(userResult)
             };
         }

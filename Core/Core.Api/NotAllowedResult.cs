@@ -12,7 +12,7 @@ namespace Core.Api
             this.where = where;
         }
 
-        public override string Body => $"{JsonConvert.SerializeObject(who)} not allowed to {JsonConvert.SerializeObject(where)}.";
+        public override string Body => $"{JsonConvert.SerializeObject(who)} not allowed to act with {JsonConvert.SerializeObject(where)}.";
 
         public override int Code => 405;
     }

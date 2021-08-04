@@ -1,11 +1,9 @@
 ﻿using Core.Application;
 using Groups.Database.TestAggregateDatabase;
 using Groups.Database.TestResultAggregateDatabase;
-using Groups.Domain;
 using Groups.Domain.Aggregates;
 using MediatR;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,15 +28,13 @@ namespace Groups.Application.TestResultQueries
 
             if (userResult == null)
             {
-                if (test != null && test.Date.AddMinutes(test.TimeDuration) < DateTime.Now)
-                {
-                    userResult = TestResultAggregate.CreateForAbsent(test, test.Group.Participients.First(p => p.Email == request.Email));
-                    repository.Add(userResult);
-                }
-                else
+                if(test == null || test.Date.AddMinutes(test.TimeDuration) > DateTime.Now)
                 {
                     return new QueryResult<TestResultView> { BodyResponse = null };
                 }
+
+                userResult = TestResultAggregate.CreateForAbsent(test, test.Group.Participients.First(p => p.Email == request.Email));
+                repository.Add(userResult);
             }
 
             var response = new TestResultMapper().MapToTestResultView(userResult);

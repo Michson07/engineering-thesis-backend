@@ -29,7 +29,7 @@ namespace Groups.Domain.Aggregates
             PointsForAnswer = pointsForAnswer;
             Title = title;
             Photo = photo;
-            Answers = answers;
+            Answers = answers != null && answers.Any() ? answers : null;
             ClosedQuestion = closedQuestion;
         }
 

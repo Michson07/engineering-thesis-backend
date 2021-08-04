@@ -20,7 +20,7 @@ namespace Groups.Application.TestCommands
 
         public async Task<CommandResult> Handle(SendNotificationsAboutTomorrowTest request, CancellationToken cancellationToken)
         {
-            var tomorrowTests = await mediator.Send(new GetTestsInTimePeriodDto { Time = DateTime.Now });
+            var tomorrowTests = await mediator.Send(new GetTestsInTimePeriodDto { Time = DateTime.Now }, cancellationToken);
             if (tomorrowTests.BodyResponse != null)
             {
                 foreach (var test in tomorrowTests.BodyResponse)
@@ -35,7 +35,7 @@ namespace Groups.Application.TestCommands
                             $"Rozpoczęcie: {test.TestDate}\n" +
                             $"Czas trwania: {test.TestTimeDuration}",
                         Emails = test.Emails
-                    });
+                    }, cancellationToken);
                 }
             }
 

@@ -1,9 +1,7 @@
 ﻿using Core.Application;
 using Groups.Application.GroupsQueries;
-using Groups.Domain;
 using Groups.Domain.Test.Aggregates;
 using NSubstitute;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Users.Application.Queries;
@@ -40,7 +38,7 @@ namespace Groups.Application.Test.GroupsQueries
                 .Build();
 
             groupAggregateRepository.Add(group);
-            
+
             var request = new GetGroupByCodeDto { Code = group.Code };
 
             var response = await handler.Handle(request, CancellationToken.None);

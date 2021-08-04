@@ -1,4 +1,5 @@
 ﻿using Core.Database;
+using Core.Domain.ValueObjects;
 using Groups.Domain.Aggregates;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -31,8 +32,9 @@ namespace Groups.Database.ResourceAggregateDatabase
                      Name = resource.Name,
                      Group = resource.Group,
                      AddedDate = resource.AddedDate,
-                     FileName = resource.File.Name,
-                     FileType = resource.File.Type
+                     FileName = resource.File != null ? resource.File.Name : null,
+                     FileType = resource.File != null ? resource.File.Type : null,
+                     Url = resource.Url
                  })
                  .ToListAsync();
         }
@@ -49,9 +51,10 @@ namespace Groups.Database.ResourceAggregateDatabase
     {
         public Guid Id { get; set; } = new Guid();
         public string Name { get; set; } = string.Empty;
-        public string FileName { get; set; } = string.Empty;
-        public string FileType { get; set; } = string.Empty;
+        public string? FileName { get; set; }
+        public string? FileType { get; set; }
         public GroupAggregate Group { get; set; } = null!;
         public DateTime AddedDate { get; set; }
+        public UrlString? Url { get; set; }
     }
 }

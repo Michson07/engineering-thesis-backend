@@ -30,7 +30,7 @@ namespace Groups.Application.TestResultQueries
             var isOwner = await testRepository.UserIsAllowedToCheckResults(request.TestId, request.Email);
             if(!isOwner)
             {
-                throw new Exception("User is not an owner of a group!");
+                throw new Exception("Użytkownik nie jest właścicielem grupy");
             }
 
             var testStudents = await testResultRepository.GetTestStudents(request.TestId);

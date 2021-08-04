@@ -27,7 +27,7 @@ namespace Groups.Domain.Test.Aggregates
             {
                 new StudentAnswer(questions.First(), new List<string>() { "Correct" }),
                 new StudentAnswer(questions.ElementAt(1), new List<string>() { "7" }),
-                new StudentAnswer(questions.First(), new List<string>()),
+                new StudentAnswer(questions.Last(), new List<string>()),
             };
         }
 

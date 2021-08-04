@@ -57,8 +57,9 @@ namespace Groups.Application.TestCommands
                     answers = question.Answers.Select(a => new Answer(a.Value, a.Correct)).ToList();
                 }
 
+                var photo = question.Photo != null ? new Photo(question.Photo) : null;
                 questionAggregates.Add(
-                    QuestionAggregate.Create(question.Points, question.Title, new Photo(question.Photo),
+                    QuestionAggregate.Create(question.Points, question.Title, photo,
                         answers, question.ClosedQuestion)
                 );
             }

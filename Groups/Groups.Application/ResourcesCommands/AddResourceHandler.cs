@@ -5,7 +5,6 @@ using Groups.Database.GroupsAggregateDatabase;
 using Groups.Database.ResourceAggregateDatabase;
 using Groups.Domain.Aggregates;
 using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -30,9 +29,11 @@ namespace Groups.Application.ResourcesCommands
                 return new CommandResult { Result = new NotFoundResult<string>(request.GroupId) };
             }
 
-            var file = new File(request.FileName, request.Type, request.Value);
-            var resource = ResourceAggregate.Create(request.Name, file, group);
-            await resourceRepository.Add(resource);    
+            var file = request.File != null ? new File(request.FileName!, request.Type!, request.File) : null;
+            var url = request.Url != null ? new UrlString(request.Url) : null;
+
+            var resource = ResourceAggregate.Create(request.Name, group, file, url);
+            await resourceRepository.Add(resource);
             await resourceRepository.SaveChanges();
 
             return new CommandResult { Result = new OkResult() };
