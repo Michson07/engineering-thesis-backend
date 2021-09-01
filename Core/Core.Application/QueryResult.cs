@@ -3,7 +3,8 @@ using Newtonsoft.Json;
 
 namespace Core.Application
 {
-    public class QueryResult<TResult> : ApiActionResult where TResult : new()
+    public class QueryResult<TResult> : ApiActionResult, IResult
+        where TResult : new()
     {
         public TResult? BodyResponse { get; set; } = default!;
 

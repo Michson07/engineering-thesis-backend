@@ -34,7 +34,7 @@ namespace Groups.Domain.Test.Aggregates
             Assert.All(testResultForAbsent.StudentAnswers,
                 sa =>
                 {
-                    Assert.True(sa.ReceivedAnswers.Count() == 1);
+                    Assert.True(sa.ReceivedAnswers!.Count() == 1);
                     Assert.Equal(string.Empty, sa.ReceivedAnswers.First());
                 }
             );

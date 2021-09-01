@@ -9,6 +9,7 @@ using Groups.Api;
 using Core.Services.EmailService;
 using Notifications.Api;
 using Chat.Api;
+using Core.Application;
 
 namespace Api
 {
@@ -38,6 +39,9 @@ namespace Api
                     .AllowAnyHeader()
                     .AllowAnyMethod());
             });
+
+            //Core
+            services.AddCoreApplication();
 
             //Users
             services.AddUsersApi(Configuration);

@@ -1,4 +1,5 @@
 ﻿using Core.Api;
+using Core.Application.Exceptions;
 using Groups.Application.TestCommands;
 using Groups.Domain.Test.Aggregates;
 using Groups.Domain.ValueObjects;
@@ -86,7 +87,7 @@ namespace Groups.Application.Test.TestCommands
 
             Assert.IsType<OkResult>(response.Result);
             Assert.Equal("Test 1", test.Name);
-            Assert.Equal(new DateTime(2021, 07, 29, 15, 30, 0), test.Date);
+            Assert.Equal(new DateTime(2021, 07, 29, 17, 30, 0), test.Date);
             Assert.Equal(50, test.PassedFrom);
             Assert.True(test.RequirePhoto);
             Assert.Equal(45, test.TimeDuration);
@@ -110,10 +111,9 @@ namespace Groups.Application.Test.TestCommands
         public async Task ShouldNotAllowToCreateTestForNotExistingGroupAsync()
         {
             var request = new AddTestDto { Group = "notExistingGroup" };
-            var response = await handler.Handle(request, CancellationToken.None);
 
-            Assert.IsType<NotFoundResult<string>>(response.Result);
-            Assert.Equal("notExistingGroup not found.", response.Result.Body);
+            var ex = await Assert.ThrowsAsync<NotFoundException>(async () => await handler.Handle(request, CancellationToken.None));
+            Assert.Equal($"Nie znaleziono grupy o id: notExistingGroup", ex.Message);
         }
     }
 }

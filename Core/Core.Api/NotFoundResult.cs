@@ -1,14 +1,15 @@
 ﻿namespace Core.Api
 {
-    public class NotFoundResult<T> : ApiActionResult
+    public class NotFoundResult : ApiActionResult
     {
-        private readonly T value;
-        public NotFoundResult(T value)
+        private readonly string message;
+
+        public NotFoundResult(string message)
         {
-            this.value = value;
+            this.message = message;
         }
 
-        public override string Body => $"{value} not found.";
+        public override string Body => message;
 
         public override int Code => 404;
     }

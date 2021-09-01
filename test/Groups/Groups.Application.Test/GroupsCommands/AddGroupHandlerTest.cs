@@ -1,4 +1,5 @@
 ﻿using Core.Api;
+using Core.Application.Exceptions;
 using Groups.Application.GroupsCommands;
 using Groups.Domain.Test.Aggregates;
 using System.Threading;
@@ -44,10 +45,8 @@ namespace Groups.Application.Test.GroupsCommands
                 Name = "Group",
             };
 
-            var response = await handler.Handle(request, CancellationToken.None);
-
-            Assert.IsType<ConflictResult<string>>(response.Result);
-            Assert.Equal("Group already exists.", response.Result.Body);
+            var ex = await Assert.ThrowsAsync<DomainException>(() => handler.Handle(request, CancellationToken.None));
+            Assert.Equal("Grupa Group już istnieje", ex.Message);
         }
     }
 }

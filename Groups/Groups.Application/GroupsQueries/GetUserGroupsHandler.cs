@@ -30,6 +30,7 @@ namespace Groups.Application.GroupsQueries
                 Id = g.Id.ToString(), 
                 Name = g.GroupName, 
                 Description = g.Description,
+                Code = g.Code,
                 IsOwner = g.Participients.First(p => p.Email == request.Email).Role == GroupRoles.Owner
             }).ToList();
 

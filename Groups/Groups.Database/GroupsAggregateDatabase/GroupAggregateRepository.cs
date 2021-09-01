@@ -25,7 +25,9 @@ namespace Groups.Database.GroupsAggregateDatabase
 
         public async Task<GroupAggregate?> GetByCode(string code)
         {
-            return await dbContext.GroupAggregate.Include(g => g.Participients).FirstOrDefaultAsync(g => g.Code == code);
+            return await dbContext.GroupAggregate
+                .Include(g => g.Participients)
+                .SingleOrDefaultAsync(g => g.Code != null && g.Code == code);
         }
 
         public GroupAggregate? GetById(string id)

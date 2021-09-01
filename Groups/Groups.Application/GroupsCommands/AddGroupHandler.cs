@@ -1,5 +1,6 @@
 ﻿using Core.Api;
 using Core.Application;
+using Core.Application.Exceptions;
 using Core.Domain.ValueObjects;
 using Groups.Database.GroupsAggregateDatabase;
 using Groups.Domain;
@@ -27,7 +28,7 @@ namespace Groups.Application.GroupsCommands
 
             if (groupExists != null)
             {
-                return new CommandResult { Result = new ConflictResult<string>(request.Name) };
+                throw new DomainException($"Grupa {request.Name} już istnieje");
             }
 
             var owner = new Participient(new Email(request.OwnerEmail), GroupRoles.Owner);

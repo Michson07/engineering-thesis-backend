@@ -6,6 +6,7 @@ namespace Core.Api
     {
         private readonly T who;
         private readonly Y where;
+
         public NotAllowedResult(T who, Y where)
         {
             this.who = who;

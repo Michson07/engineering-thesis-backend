@@ -1,5 +1,6 @@
 ﻿using Core.Api;
 using Core.Application;
+using Core.Application.Exceptions;
 using Core.Domain.ValueObjects;
 using Groups.Database.GroupsAggregateDatabase;
 using Groups.Database.ResourceAggregateDatabase;
@@ -26,7 +27,7 @@ namespace Groups.Application.ResourcesCommands
             var group = groupRepository.GetById(request.GroupId);
             if (group == null)
             {
-                return new CommandResult { Result = new NotFoundResult<string>(request.GroupId) };
+                throw new NotFoundException(request.GroupId, "grupy");
             }
 
             var file = request.File != null ? new File(request.FileName!, request.Type!, request.File) : null;

@@ -1,13 +1,11 @@
 ﻿using Core.Api;
+using Core.Application.Exceptions;
 using Core.Domain.ValueObjects;
 using Groups.Application.GroupsCommands;
 using Groups.Domain;
 using Groups.Domain.Test.Aggregates;
 using Groups.Domain.ValueObjects;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -51,10 +49,8 @@ namespace Groups.Application.Test.GroupsCommands
                 Id = "notExistingGroupId"
             };
 
-            var response = await handler.Handle(request, CancellationToken.None);
-
-            Assert.IsType<NotFoundResult<string>>(response.Result);
-            Assert.Equal("notExistingGroupId not found.", response.Result.Body);
+            var ex = await Assert.ThrowsAsync<NotFoundException>(() => handler.Handle(request, CancellationToken.None));
+            Assert.Equal("Nie znaleziono grupy o id: notExistingGroupId", ex.Message);
         }
 
         [Fact]
@@ -73,10 +69,8 @@ namespace Groups.Application.Test.GroupsCommands
                 Email = email
             };
 
-            var response = await handler.Handle(request, CancellationToken.None);
-
-            Assert.IsType<ConflictResult<string>>(response.Result);
-            Assert.Equal("student@mail.com already exists.", response.Result.Body);
+            var ex = await Assert.ThrowsAsync<DomainException>(() => handler.Handle(request, CancellationToken.None));
+            Assert.Equal($"{request.Email} już należy do grupy {group.GroupName}", ex.Message);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Core.Api;
 using Core.Application;
+using Core.Application.Exceptions;
 using Groups.Database.TestAggregateDatabase;
 using Groups.Database.TestResultAggregateDatabase;
 using Groups.Domain.Aggregates;
@@ -29,7 +30,7 @@ namespace Groups.Application.TestResultCommands
             var test = await testRepository.GetTestById(request.TestId);
             if(test == null)
             {
-                return new CommandResult { Result = new NotFoundResult<string>(request.TestId) };
+                throw new NotFoundException(request.TestId, "testu");
             }
 
             var userInGroup = test.Group.Participients.FirstOrDefault(p => p.Email == request.StudentEmail);

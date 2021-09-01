@@ -1,10 +1,10 @@
 ﻿using Core.Api;
+using Core.Application.Exceptions;
 using Core.Domain.ValueObjects;
 using Groups.Application.AnnouncementCommands;
 using Groups.Domain;
 using Groups.Domain.Test.Aggregates;
 using Groups.Domain.ValueObjects;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -49,20 +49,13 @@ namespace Groups.Application.Test.AnnouncementCommands
         [Fact]
         public async Task ShouldNotAllowToCreateAnnouncementForNotExisitingGroup()
         {
-            var email = new Email("mailCreator@mail.com");
-            var group = new GroupAggregateBuilder()
-                .WithParticipients(new List<Participient> { new(email, GroupRoles.Owner) })
-                .Build();
-
             var request = new AddAnnouncementDto
             {
-                CreatorEmail = email,
-                GroupId = group.Id.ToString(),
-                Message = "Very important announcement for group",
-                Title = "title"
+                GroupId = "notExisitingGroup"
             };
 
-            await Assert.ThrowsAsync<Exception>(async () => await handler.Handle(request, CancellationToken.None));
+            var ex = await Assert.ThrowsAsync<NotFoundException>(async () => await handler.Handle(request, CancellationToken.None));
+            Assert.Equal($"Nie znaleziono grupy o id: notExisitingGroup", ex.Message);
         }
 
         [Fact]
@@ -70,6 +63,7 @@ namespace Groups.Application.Test.AnnouncementCommands
         {
             var email = new Email("mailCreator@mail.com");
             var group = new GroupAggregateBuilder().Build();
+            groupAggregateRepository.Add(group);
 
             var request = new AddAnnouncementDto
             {
@@ -79,7 +73,8 @@ namespace Groups.Application.Test.AnnouncementCommands
                 Title = "title"
             };
 
-            await Assert.ThrowsAsync<Exception>(async () => await handler.Handle(request, CancellationToken.None));
+            var ex = await Assert.ThrowsAsync<DomainException>(async () => await handler.Handle(request, CancellationToken.None));
+            Assert.Equal($"{request.CreatorEmail} nie należy do grupy {group.GroupName}", ex.Message);
         }
     }
 }

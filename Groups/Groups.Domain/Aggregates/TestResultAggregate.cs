@@ -55,7 +55,7 @@ namespace Groups.Domain.Aggregates
             var studentAnswers = new List<StudentAnswer>();
             foreach(var question in test.Questions)
             {
-                studentAnswers.Add(new StudentAnswer(question, new List<string> { "" }));
+                studentAnswers.Add(new StudentAnswer(question, new List<string> { "" }, 0));
             }
 
             var testResult = new TestResultAggregate(test, student, studentAnswers);

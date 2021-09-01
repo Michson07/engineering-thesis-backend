@@ -9,7 +9,8 @@ namespace Groups.Domain.ValueObjects
         {
         }
 
-        public GroupAccessCode(string value = "") : base(new TokenGeneratorService(10).Generate())
+        public GroupAccessCode(string value = "") 
+            : base(value == "" ? new TokenGeneratorService(10).Generate() : value)
         {
         }
     }

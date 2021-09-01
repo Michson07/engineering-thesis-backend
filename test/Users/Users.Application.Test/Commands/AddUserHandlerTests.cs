@@ -1,4 +1,5 @@
 ﻿using Core.Api;
+using Core.Application.Exceptions;
 using Core.Domain.ValueObjects;
 using FluentValidation;
 using System.Linq;
@@ -46,12 +47,11 @@ namespace Users.Application.Test.Commands
         public async Task ShouldReturnConflictIsUserAlreadyExistsAsync()
         {
             repository.Add(UserAggregate.Create(new Email("user@mail.com"), "Jan", "Nowak", null));
-            var response = await handler.Handle(newUserDto, CancellationToken.None);
+
+            var ex = await Assert.ThrowsAsync<DomainException>(async () => await handler.Handle(newUserDto, CancellationToken.None));
+            Assert.Equal($"Użytkownik z mailem {newUserDto.Email} już istnieje", ex.Message);
 
             var users = await repository.GetAllUsersAsync();
-
-            Assert.IsType<ConflictResult<string>>(response.Result);
-            Assert.Equal("user@mail.com already exists.", response.Result.Body);
             Assert.True(users.Count() == 1);
         }
 

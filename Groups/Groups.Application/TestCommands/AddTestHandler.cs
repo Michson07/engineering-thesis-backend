@@ -1,5 +1,6 @@
 ﻿using Core.Api;
 using Core.Application;
+using Core.Application.Exceptions;
 using Core.Domain.ValueObjects;
 using Groups.Database.GroupsAggregateDatabase;
 using Groups.Database.QuestionAggregateDatabase;
@@ -32,12 +33,12 @@ namespace Groups.Application.TestCommands
             var group = groupRepository.GetById(request.Group);
             if (group == null)
             {
-                return new CommandResult { Result = new NotFoundResult<string>(request.Group) };
+                throw new NotFoundException(request.Group, "grupy");
             }
 
             var questions = MapToQuestions(request.Questions);
             var test = TestAggregate.Create(request.Name, questions, group,
-                request.Date, request.RequirePhoto, request.PassedFrom, request.TimeDuration);
+                request.Date.ToLocalTime(), request.RequirePhoto, request.PassedFrom, request.TimeDuration);
 
             await questionRepository.Add(questions);
             await testRepository.Add(test);

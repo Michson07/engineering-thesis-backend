@@ -1,5 +1,6 @@
 ﻿using Core.Api;
 using Core.Application;
+using Core.Application.Exceptions;
 using Core.Domain.ValueObjects;
 using Groups.Database.GroupsAggregateDatabase;
 using Groups.Domain;
@@ -25,12 +26,12 @@ namespace Groups.Application.GroupsCommands
             var group = repository.GetById(request.Id);
             if (group == null)
             {
-                return Task.FromResult(new CommandResult { Result = new NotFoundResult<string>(request.Id) });
+                throw new NotFoundException(request.Id, "grupy");
             }
 
             if (group.Participients.Any(p => p.Email == request.Email))
             {
-                return Task.FromResult(new CommandResult { Result = new ConflictResult<string>(request.Email) });
+                throw new DomainException($"{request.Email} już należy do grupy {group.GroupName}");
             }
 
             var updatedParticipients = group.Participients.ToList();

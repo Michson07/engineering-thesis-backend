@@ -1,5 +1,6 @@
 ﻿using Core.Api;
 using Core.Application;
+using Core.Application.Exceptions;
 using Core.Domain.ValueObjects;
 using MediatR;
 using System.Threading;
@@ -23,7 +24,7 @@ namespace Users.Application.Commands
             var userExists = repository.Get(request.Email);
             if(userExists != null)
             {
-                return new CommandResult { Result = new ConflictResult<string>(request.Email) };
+                throw new DomainException($"Użytkownik z mailem {request.Email} już istnieje");
             }
 
             var userAggregate = UserAggregate.Create(new Email(request.Email), request.Name, request.LastName, null);

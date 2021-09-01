@@ -11,7 +11,7 @@ namespace Groups.Domain.Aggregates
         public IEnumerable<Participient> Participients { get; private set; } = null!;
         public GroupName GroupName { get; private set; } = null!;
         public string Description { get; private set; } = string.Empty;
-        public GroupAccessCode? Code { get; private set; } = null!;
+        public GroupAccessCode? Code { get; private set; }
 
         private GroupAggregate()
         {
