@@ -36,6 +36,12 @@ namespace Groups.Api
         [HttpGet]
         public async Task<ApiActionResult> GetAnnouncementForUserAsync(string email)
         {
+            var principalEmail = GetPrincipalEmail();
+            if (principalEmail == null || email != principalEmail)
+            {
+                return new NotAllowedResult<string, string>(principalEmail ?? "unknown user", $"read ${email} announcements");
+            }
+
             var response = await mediator.Send(new GetUserAnnouncementsDto { Email = email });
 
             return response;

@@ -19,7 +19,7 @@ namespace Groups.Domain.Test.Aggregates
             Assert.Equal("Test 1", test.Name);
             Assert.True(test.Questions.Count() == 3);
             Assert.NotNull(test.Group);
-            Assert.Equal(new DateTime(2021, 10, 15, 15, 0, 0), test.Date);
+            Assert.Equal(new DateTime(2022, 10, 15, 15, 0, 0), test.Date);
             Assert.False(test.RequirePhoto);
             Assert.True(test.TimeDuration == 45);
             Assert.True(test.PassedFrom == 50);

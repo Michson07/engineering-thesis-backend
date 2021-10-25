@@ -18,7 +18,7 @@ namespace Groups.Domain.Test.Aggregates
         };
 
         private GroupAggregate group = new GroupAggregateBuilder().Build();
-        private DateTime date = new DateTime(2021, 10, 15, 15, 0, 0);
+        private DateTime date = new DateTime(2022, 10, 15, 15, 0, 0);
         private bool requirePhoto = false;
         private int timeDuration = 45;
         private int? passedFrom = 50;

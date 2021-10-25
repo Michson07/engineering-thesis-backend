@@ -40,6 +40,12 @@ namespace Groups.Api
         [HttpGet]
         public async Task<ApiActionResult> GetUserTests(string email)
         {
+            var principalEmail = GetPrincipalEmail();
+            if (principalEmail == null || email != principalEmail)
+            {
+                return new NotAllowedResult<string, string>(principalEmail ?? "unknown user", $"read ${email} tests");
+            }
+
             var response = await mediator.Send(new GetUserTestsDto { Email = email });
 
             return response;
@@ -58,6 +64,12 @@ namespace Groups.Api
         [HttpGet]
         public async Task<ApiActionResult> GetTestResult(string email, string testId)
         {
+            var principalEmail = GetPrincipalEmail();
+            if (principalEmail == null || email != principalEmail)
+            {
+                return new NotAllowedResult<string, string>(principalEmail ?? "unknown user", $"get ${email} test result");
+            }
+
             var response = await mediator.Send(new GetTestResultDto { Email = email, TestId = testId });
 
             return response;
@@ -67,6 +79,12 @@ namespace Groups.Api
         [HttpGet]
         public async Task<ApiActionResult> GetTestStudentsResults(string email, string testId)
         {
+            var principalEmail = GetPrincipalEmail();
+            if (principalEmail == null || email != principalEmail)
+            {
+                return new NotAllowedResult<string, string>(principalEmail ?? "unknown user", $"read ${email} students results");
+            }
+
             var response = await mediator.Send(new GetTestStudentsResultsDto { Email = email, TestId = testId });
 
             return response;
@@ -76,6 +94,12 @@ namespace Groups.Api
         [HttpPut]
         public async Task<ApiActionResult> UpdateTestResultStatus(UpdateTestResultStatusDto updateTestResultStatus)
         {
+            var principalEmail = GetPrincipalEmail();
+            if (principalEmail == null || updateTestResultStatus.Email != principalEmail)
+            {
+                return new NotAllowedResult<string, string>(principalEmail ?? "unknown user", $"${updateTestResultStatus.Email} tests checking");
+            }
+
             var response = await mediator.Send(updateTestResultStatus);
 
             return response.Result;

@@ -28,6 +28,12 @@ namespace Groups.Api
         [HttpGet]
         public ApiActionResult GetUserGroups(string email)
         {
+            var principalEmail = GetPrincipalEmail();
+            if (principalEmail == null || email != principalEmail)
+            {
+                return new NotAllowedResult<string, string>(principalEmail ?? "unknown user", $"get {email} groups");
+            }
+
             var response = mediator.Send(new GetUserGroupsDto { Email = email });
 
             return response.Result;
@@ -55,6 +61,12 @@ namespace Groups.Api
         [HttpPost]
         public async Task<ApiActionResult> AddUserToGroup(JoinGroupDto joinGroupModel)
         {
+            var principalEmail = GetPrincipalEmail();
+            if (principalEmail == null || joinGroupModel.Email != principalEmail)
+            {
+                return new NotAllowedResult<string, string>(principalEmail ?? "unknown user", $"{joinGroupModel.Email}");
+            }
+
             var response = await mediator.Send(joinGroupModel);
 
             return response.Result;

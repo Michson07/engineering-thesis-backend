@@ -19,11 +19,17 @@ namespace Users.Api
         }
 
         [HttpGet]
-        public ActionResult<GetUserByPhotoView> GetPhoto(string email)
+        public ApiActionResult GetPhoto(string email)
         {
+            var principalEmail = GetPrincipalEmail();
+            if (principalEmail == null || email != principalEmail)
+            {
+                return new NotAllowedResult<string, string>(principalEmail ?? "unknown user", $"${email} photos");
+            }
+
             var response = mediator.Send(new GetUserByPhotoDto { Email = email });
 
-            return response.Result.BodyResponse;
+            return response.Result;
         }
 
         [Route("all")]
@@ -46,6 +52,12 @@ namespace Users.Api
         [HttpPut]
         public async Task<ApiActionResult> UpdateProfileAsync(UpdateUserDto user)
         {
+            var principalEmail = GetPrincipalEmail();
+            if (principalEmail == null || user.Email != principalEmail)
+            {
+                return new NotAllowedResult<string, string>(principalEmail ?? "unknown user", $"${user.Email} profile");
+            }
+
             var response = await mediator.Send(user);
 
             return response.Result;
