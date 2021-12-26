@@ -28,7 +28,7 @@ namespace Groups.Domain.Aggregates
             StudentAnswers = studentAnswers;
             if(test.PassedFrom != null)
             {
-                var resultInPercents = ReceivedPoints / test.MaxPoints * 100;
+                var resultInPercents = (double)ReceivedPoints / test.MaxPoints * 100;
                 State = resultInPercents >= test.PassedFrom ? "Passed" : "NotPassed";
             }
             if(test.Questions.All(q => q.Answers != null))

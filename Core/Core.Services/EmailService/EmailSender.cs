@@ -12,6 +12,7 @@ namespace Core.Services.EmailService
     {
         private readonly string senderEmail;
         private readonly string senderPassword;
+
         public EmailSender(IConfiguration configuration)
         {
             senderEmail = configuration["Gmail:SenderEmail"];
@@ -24,7 +25,7 @@ namespace Core.Services.EmailService
             mailMessage.To.Add(email);
 
             mailMessage.Subject = message.Title;
-            mailMessage.Body = message.Title;
+            mailMessage.Body = message.Message;
             mailMessage.From = new MailAddress(senderEmail);
 
             using SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587)

@@ -51,8 +51,8 @@ namespace Groups.Application.TestResultCommands
             { 
                 Email = request.UserEmail,
                 Title = $"Test {testResult.Test.Name} został sprawdzony.",
-                Message = $"Test {testResult.Test.Name} został sprawdzony. " +
-                    $"Całkowita liczba uzyskanych puntków wynosi {updated.ReceivedPoints} {GetPercents(updated.ReceivedPoints, updated.Test.MaxPoints)} %)"
+                Message = $"Witaj!\nTest o nazwie '{testResult.Test.Name}' został już sprawdzony.\n " +
+                    $"Całkowita liczba uzyskanych puntków wynosi {updated.ReceivedPoints} co daje wynik {GetPercents(updated.ReceivedPoints, updated.Test.MaxPoints)} %"
             }, cancellationToken);
 
             return new CommandResult { Result = new OkResult() };
@@ -70,9 +70,9 @@ namespace Groups.Application.TestResultCommands
             return newStudentAnswers;
         }
 
-        private static int GetPercents(int receivedPoints, int allPoints)
+        private static double GetPercents(int receivedPoints, int allPoints)
         {
-            return receivedPoints / allPoints * 100;
+            return Math.Round((double)receivedPoints / allPoints * 100, 2);
         }
     }
 }
