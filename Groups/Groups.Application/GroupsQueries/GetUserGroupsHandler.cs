@@ -22,9 +22,9 @@ namespace Groups.Application.GroupsQueries
             this.testRepository = testRepository;
         }
 
-        public Task<QueryResult<List<GroupView>>> Handle(GetUserGroupsDto request, CancellationToken cancellationToken)
+        public async Task<QueryResult<List<GroupView>>> Handle(GetUserGroupsDto request, CancellationToken cancellationToken)
         {
-            var groups = groupRepository.GetUserGroups(request.Email);
+            var groups = await groupRepository.GetUserGroups(request.Email);
             var groupsView = groups.Select(g => new GroupView 
             {
                 Id = g.Id.ToString(), 
@@ -40,9 +40,7 @@ namespace Groups.Application.GroupsQueries
                 groupView.Tests = MapTestsToView(tests);
             }
 
-            var response = new QueryResult<List<GroupView>> { BodyResponse = groupsView };
-
-            return Task.FromResult(response);
+            return new QueryResult<List<GroupView>> { BodyResponse = groupsView };
         }
 
         private IEnumerable<TestGroupView> MapTestsToView(IEnumerable<TestAggregate>? tests)

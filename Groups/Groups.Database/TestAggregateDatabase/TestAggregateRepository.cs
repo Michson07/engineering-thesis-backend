@@ -20,7 +20,7 @@ namespace Groups.Database.TestAggregateDatabase
             await dbContext.AddAsync(test);
         }
 
-        public async Task<TestAggregate>? GetTestById(string id)
+        public async Task<TestAggregate?> GetTestById(string id)
         {
             return await dbContext
                 .TestAggregate

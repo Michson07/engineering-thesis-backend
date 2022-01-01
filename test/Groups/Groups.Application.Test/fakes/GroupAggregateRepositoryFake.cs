@@ -30,9 +30,9 @@ namespace Groups.Application.Test.fakes
             return Task.FromResult(repository.FirstOrDefault(group => group.GroupName == name));
         }
 
-        public IEnumerable<GroupAggregate> GetUserGroups(string email)
+        public Task<IEnumerable<GroupAggregate>> GetUserGroups(string email)
         {
-            return repository.Where(group => group.Participients.Any(user => user.Email == email));
+            return Task.FromResult(repository.Where(group => group.Participients.Any(user => user.Email == email)));
         }
 
         public Task SaveChanges()

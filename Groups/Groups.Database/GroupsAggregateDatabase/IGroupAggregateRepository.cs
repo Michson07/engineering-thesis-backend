@@ -11,7 +11,7 @@ namespace Groups.Database.GroupsAggregateDatabase
         public Task<GroupAggregate?> GetByCode(string code);
         public Task<GroupAggregate?> GetByName(string name);
 
-        public IEnumerable<GroupAggregate> GetUserGroups(string email);
+        public Task<IEnumerable<GroupAggregate>> GetUserGroups(string email);
         public void Add(GroupAggregate group);
         public void Update(GroupAggregate group);
     }

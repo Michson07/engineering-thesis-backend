@@ -18,11 +18,6 @@ namespace Groups.Database.GroupsAggregateDatabase
             dbContext.Add(group);
         }
 
-        public GroupAggregate? Get(string name)
-        {
-            return dbContext.GroupAggregate.FirstOrDefault(group => group.GroupName == name);
-        }
-
         public async Task<GroupAggregate?> GetByCode(string code)
         {
             return await dbContext.GroupAggregate
@@ -43,11 +38,12 @@ namespace Groups.Database.GroupsAggregateDatabase
             return await dbContext.GroupAggregate.Include(g => g.Participients).FirstOrDefaultAsync(g => g.GroupName == name);
         }
 
-        public IEnumerable<GroupAggregate> GetUserGroups(string email)
+        public async Task<IEnumerable<GroupAggregate>> GetUserGroups(string email)
         {
-            return dbContext
+            return await dbContext
                 .GroupAggregate
-                .Where(group => group.Participients.Any(p => p.Email == email));
+                .Where(group => group.Participients.Any(p => p.Email == email))
+                .ToListAsync();
         }
 
         public void Update(GroupAggregate group)
