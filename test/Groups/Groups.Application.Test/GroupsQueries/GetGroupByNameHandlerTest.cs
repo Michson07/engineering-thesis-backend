@@ -80,7 +80,7 @@ namespace Groups.Application.Test.GroupsQueries
             Assert.Empty(response.BodyResponse.Id);
             Assert.Empty(response.BodyResponse.Name);
             Assert.Empty(response.BodyResponse.Owner);
-            Assert.Equal("Dołączenie do tej grupy wymaga podania kluczu dostępu", response.BodyResponse.Error);
+            Assert.Equal("Dołączenie do tej grupy wymaga podania klucza dostępu", response.BodyResponse.Error);
         }
     }
 }

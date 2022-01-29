@@ -35,7 +35,7 @@ namespace Groups.Application.GroupsQueries
             {
                 return new QueryResult<GroupBasicView>
                 {
-                    BodyResponse = new GroupBasicView { Error = "Dołączenie do tej grupy wymaga podania kluczu dostępu" }
+                    BodyResponse = new GroupBasicView { Error = "Dołączenie do tej grupy wymaga podania klucza dostępu" }
                 };
             }
 

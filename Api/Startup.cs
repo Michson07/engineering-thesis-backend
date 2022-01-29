@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Users.Api;
 using Groups.Api;
@@ -11,6 +10,11 @@ using Notifications.Api;
 using Chat.Api;
 using Core.Application;
 using System.Collections.Generic;
+using Groups.Database;
+using Microsoft.EntityFrameworkCore;
+using Chat.Database;
+using Notifications.Database;
+using Users.Database.UserAggregateDatabase;
 
 namespace Api
 {
@@ -84,6 +88,11 @@ namespace Api
 
             //Services
             services.AddEmailService();
+
+            services.BuildServiceProvider().GetService<GroupsDbContext>().Database.Migrate();
+            services.BuildServiceProvider().GetService<ChatDbContext>().Database.Migrate();
+            services.BuildServiceProvider().GetService<NotificationsDbContext>().Database.Migrate();
+            services.BuildServiceProvider().GetService<UserAggregateDbContext>().Database.Migrate();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
